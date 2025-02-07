@@ -28,8 +28,8 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
-				<Navigation />
 				<ApolloWrapper>
+					<Navigation />
 					<Box sx={{ marginTop: '5.5rem' }}>{children}</Box>
 				</ApolloWrapper>
 			</body>

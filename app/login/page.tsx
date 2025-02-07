@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { Box, Button, CircularProgress } from '@mui/material'
@@ -5,40 +6,44 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
 import Wrapper from '../components/Wrapper'
-import { MeDocument, MeQuery, RegisterInput, useRegisterMutation } from '../generated/graphql'
+import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
 import { useCheckAuth } from '../utils/useCheckAuth'
 
-export default function Register() {
-	const initialValues: RegisterInput = { username: '', email: '', password: '' }
+export default function Login() {
 	const router = useRouter()
 
 	const { data: authData, loading: authLoading } = useCheckAuth()
 
-	const [registerUser, { data, error }] = useRegisterMutation()
+	const initialValues: LoginInput = { usernameOrEmail: '', password: '' }
 
-	const onRegisterSubmit = async (
-		values: RegisterInput,
-		{ setErrors }: FormikHelpers<RegisterInput>,
-	) => {
-		const response = await registerUser({
+	const [loginUser, { data, error }] = useLoginMutation()
+
+	const onLoginSubmit = async (values: LoginInput, { setErrors }: FormikHelpers<LoginInput>) => {
+		const response = await loginUser({
 			variables: {
-				registerInput: values,
+				loginInput: values,
 			},
 			update(cache, { data }) {
-				if (data?.register?.success) {
+				console.log('DATA LOGIN', data)
+
+				// const meData = cache.readQuery({ query: MeDocument })
+				// console.log('MEDATA', meData)
+
+				if (data?.login.success) {
 					cache.writeQuery<MeQuery>({
 						query: MeDocument,
-						data: { me: data.register.user },
+						data: { me: data.login.user },
 					})
 				}
 			},
 		})
 
-		if (response.data?.register?.errors) {
-			setErrors(mapFieldErrors(response.data.register.errors))
-		} else if (response.data?.register?.user) {
-			// Register successfully
+		if (response.data?.login?.errors) {
+			setErrors(mapFieldErrors(response.data.login.errors))
+		} else if (response.data?.login?.user) {
+			// Login successfully
+
 			router.push('/')
 		}
 	}
@@ -51,16 +56,17 @@ export default function Register() {
 				</Box>
 			) : (
 				<Wrapper>
-					{error && <p>Failed to register. Internal server error.</p>}
-					{data && data.register?.success && <p>Registered successfully{JSON.stringify(data)}</p>}
-					<Formik initialValues={initialValues} onSubmit={onRegisterSubmit}>
+					{error && <p>Failed to login. Internal server error.</p>}
+					<Formik initialValues={initialValues} onSubmit={onLoginSubmit}>
 						{({ isSubmitting }) => (
 							<Form>
 								<Box mt={2}>
-									<InputField name="username" placeholder="Username" label="Username" type="text" />
-								</Box>
-								<Box mt={2}>
-									<InputField name="email" placeholder="Email" label="Email" type="text" />
+									<InputField
+										name="usernameOrEmail"
+										placeholder="Username or Email"
+										label="Username or Email"
+										type="text"
+									/>
 								</Box>
 								<Box mt={2}>
 									<InputField
@@ -71,7 +77,7 @@ export default function Register() {
 									/>
 								</Box>
 								<Button type="submit" sx={{ mt: 2 }} loading={isSubmitting} loadingPosition="end">
-									Register
+									Login
 								</Button>
 							</Form>
 						)}

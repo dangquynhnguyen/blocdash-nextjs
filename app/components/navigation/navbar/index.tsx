@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import logo from '@/app/assets/logo.png'
+import { MeDocument, MeQuery, useLogoutMutation, useMeQuery } from '@/app/generated/graphql'
 import { colors } from '@/theme'
 import SearchIcon from '@mui/icons-material/Search'
-import { Box, IconButton, InputBase } from '@mui/material'
+import { Box, Button, IconButton, InputBase } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { styled, SxProps, Theme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
@@ -29,8 +31,7 @@ export default function Navbar() {
 	const linkStyle: SxProps<Theme> | undefined = {
 		fontSize: '0.95rem',
 		fontWeight: 'bold',
-		// display: 'inline',
-		padding: '0 1rem',
+		padding: '2rem 1rem',
 		'&:hover': {
 			color: colors.primary[0],
 		},
@@ -41,10 +42,6 @@ export default function Navbar() {
 		marginRight: '1.5rem',
 		borderRadius: '20px',
 		backgroundColor: colors.primary[900],
-	}
-	const iconBarStyle: CSSProperties = {
-		display: 'flex',
-		marginRight: '0.5rem',
 	}
 	const [drawerWidth, setDrawerWidth] = useState(0)
 	interface AppBarProps extends MuiAppBarProps {
@@ -68,6 +65,40 @@ export default function Navbar() {
 		}),
 	}))
 
+	const { data, loading: useMeQueryLoading } = useMeQuery()
+	const [logout, { loading: useLogoutMutationLoading }] = useLogoutMutation()
+
+	async function logoutUser() {
+		await logout({
+			update(cache, { data }) {
+				if (data?.logout) {
+					cache.writeQuery<MeQuery>({
+						query: MeDocument,
+						data: { me: null },
+					})
+				}
+			},
+		})
+	}
+
+	let body
+	if (useMeQueryLoading) {
+		body = null
+	} else if (!data?.me) {
+		body = (
+			<>
+				<Link href={'/login'}>Login</Link>
+				<Link href={'/register'}>Register</Link>
+			</>
+		)
+	} else {
+		body = (
+			<Button onClick={logoutUser} loading={useLogoutMutationLoading} loadingPosition="end">
+				Logout
+			</Button>
+		)
+	}
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			setDrawerWidth(window.screen.width / 5.5)
@@ -77,26 +108,35 @@ export default function Navbar() {
 	return (
 		<AppBar className="main-nav" position="fixed" style={navStyle} color="transparent">
 			<Toolbar style={{ padding: 0, margin: 0 }}>
-				<Image className="avatar" alt={'logo'} src={logo} style={imgStyle} />
 				{/* NAV LINKS */}
 				<Box
 					sx={{
 						display: 'flex',
+						alignItems: 'center',
+						width: '100%',
 						margin: '0',
-						'&:hover': {
-							color: colors.primary[800],
-						},
 					}}
 				>
 					<Link href={'/'}>
-						<Box sx={linkStyle}>Home</Box>
+						<Image className="avatar" alt={'logo'} src={logo} style={imgStyle} />
 					</Link>
-					<Link href={'/metrics'}>
-						<Box sx={linkStyle}>Metrics</Box>
-					</Link>
-					<Link href={'/tokens'}>
-						<Box sx={linkStyle}>Tokens</Box>
-					</Link>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							margin: '0',
+							'&:hover': {
+								color: colors.primary[800],
+							},
+						}}
+					>
+						<Link href={'/metrics'}>
+							<Box sx={linkStyle}>Metrics</Box>
+						</Link>
+						<Link href={'/tokens'}>
+							<Box sx={linkStyle}>Tokens</Box>
+						</Link>
+					</Box>
 				</Box>
 				{/* SEARCH BAR */}
 				<Box style={searchBarStyle}>
@@ -105,8 +145,8 @@ export default function Navbar() {
 						<SearchIcon />
 					</IconButton>
 				</Box>
-				{/* ICONS */}
-				<Box style={iconBarStyle}></Box>
+				{/* LOGIN/REGISTER/LOGOUT */}
+				<Box mr="2rem">{body}</Box>
 			</Toolbar>
 		</AppBar>
 	)
