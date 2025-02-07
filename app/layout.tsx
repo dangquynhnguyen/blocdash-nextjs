@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import Navigation from '../components/navigation'
 import { ApolloWrapper } from './ApolloWrapper'
+import Navigation from './components/navigation'
 import './globals.css'
 
 const geistSans = Geist({

@@ -3,8 +3,8 @@
 import { Box, Button } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
-import InputField from '../../components/InputField'
-import Wrapper from '../../components/Wrapper'
+import InputField from '../components/InputField'
+import Wrapper from '../components/Wrapper'
 import { RegisterInput, useRegisterMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
 

@@ -1,6 +1,6 @@
 'use client'
+import { colors } from '@/theme'
 import { inputClasses, Input as InputMUI, InputProps, styled } from '@mui/material'
-import { colors } from '../../theme'
 
 const StyledInput = styled(InputMUI)(
 	() => `

@@ -1,7 +1,7 @@
 'use client'
 import { Alert, FormControl, FormLabel, InputProps } from '@mui/material'
 import { useField } from 'formik'
-import Input from './styledMUI/Input'
+import Input from './styledMui/Input'
 
 interface IInputFieldProps extends InputProps {
 	label: string
