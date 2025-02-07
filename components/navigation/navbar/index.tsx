@@ -1,6 +1,5 @@
 'use client'
 
-import logo from '@/assets/logo.png'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
@@ -9,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CSSProperties, useEffect, useState } from 'react'
+import logo from '../../../app/assets/logo.png'
 import { colors } from '../../../theme'
 
 export default function Navbar() {

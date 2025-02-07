@@ -1,27 +1,19 @@
 'use client'
-import { colors } from '@/theme'
-import { inputClasses, Input as InputMUI, styled } from '@mui/material'
-import { ChangeEventHandler } from 'react'
+import { inputClasses, Input as InputMUI, InputProps, styled } from '@mui/material'
+import { colors } from '../../theme'
 
-type Props = {
-	id?: string
-	placeholder?: string
-	value?: string
-	onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> | undefined
-}
 const StyledInput = styled(InputMUI)(
 	() => `
     display: inline-block;
+    margin-top: 0px !important;
   
     .${inputClasses.input} {
-      width: 320px;
-      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.875rem;
       font-weight: 400;
       line-height: 1.5;
       padding: 8px 12px;
       border-radius: 8px;
-      color: ${colors.primary[500]};
+      color: ${colors.primary[100]};
       background: ${colors.primary[1000]};
       border: 1px solid ${colors.logo[200]};
       box-shadow: 0 0 2px 2px ${colors.logo[200]};
@@ -43,14 +35,6 @@ const StyledInput = styled(InputMUI)(
   `,
 )
 
-export default function Input(props: Props) {
-	return (
-		<StyledInput
-			disableUnderline
-			id={props.id}
-			placeholder={props.placeholder}
-			value={props.value}
-			onChange={props.onChange}
-		/>
-	)
+export default function Input(props: InputProps) {
+	return <StyledInput fullWidth disableUnderline {...props} />
 }

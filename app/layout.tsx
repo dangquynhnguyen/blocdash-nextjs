@@ -1,7 +1,8 @@
-import Navigation from '@/components/navigation'
 import { Box } from '@mui/material'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Navigation from '../components/navigation'
+import { ApolloWrapper } from './ApolloWrapper'
 import './globals.css'
 
 const geistSans = Geist({
@@ -28,7 +29,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
 				<Navigation />
-				<Box sx={{ marginTop: '5.5rem' }}>{children}</Box>
+				<ApolloWrapper>
+					<Box sx={{ marginTop: '5.5rem' }}>{children}</Box>
+				</ApolloWrapper>
 			</body>
 		</html>
 	)
