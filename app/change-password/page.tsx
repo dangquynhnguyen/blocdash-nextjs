@@ -6,7 +6,7 @@ import { Alert, Box, CircularProgress, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import NextLink from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import InputField from '../components/InputField'
 import SubmitButton from '../components/styledMui/SubmitButton'
 import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
@@ -20,7 +20,7 @@ import {
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
 import { useCheckAuth } from '../utils/useCheckAuth'
 
-export default function ChangePassword() {
+function ChangePasswordContent() {
 	const router = useRouter()
 	const { data: authData, loading: authLoading } = useCheckAuth()
 
@@ -118,4 +118,12 @@ export default function ChangePassword() {
 				</Formik>
 			</Wrapper>
 		)
+}
+
+export default function ChangePassword() {
+	return (
+		<Suspense fallback={<CircularProgress />}>
+			<ChangePasswordContent />
+		</Suspense>
+	)
 }
