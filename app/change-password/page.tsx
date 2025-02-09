@@ -2,20 +2,26 @@
 'use client'
 
 import { colors } from '@/theme'
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Alert, Box, CircularProgress, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import NextLink from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import InputField from '../components/InputField'
 import SubmitButton from '../components/styledMui/SubmitButton'
 import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
 import Wrapper from '../components/Wrapper'
-import { ChangePasswordInput, useChangePasswordMutation } from '../generated/graphql'
+import {
+	ChangePasswordInput,
+	MeDocument,
+	MeQuery,
+	useChangePasswordMutation,
+} from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
 import { useCheckAuth } from '../utils/useCheckAuth'
 
 export default function ChangePassword() {
+	const router = useRouter()
 	const { data: authData, loading: authLoading } = useCheckAuth()
 
 	const searchParams = useSearchParams()
@@ -39,6 +45,16 @@ export default function ChangePassword() {
 					token: token as string,
 					changePasswordInput: values,
 				},
+				update(cache, { data }) {
+					console.log('DATA LOGIN', data)
+
+					if (data?.changePassword.success) {
+						cache.writeQuery<MeQuery>({
+							query: MeDocument,
+							data: { me: data.changePassword.user },
+						})
+					}
+				},
 			})
 
 			if (response.data?.changePassword.errors) {
@@ -47,6 +63,8 @@ export default function ChangePassword() {
 					setTokenError(fieldErrors.token)
 				}
 				setErrors(fieldErrors)
+			} else if (response.data?.changePassword.user) {
+				router.push('/')
 			}
 		}
 	}
@@ -56,6 +74,15 @@ export default function ChangePassword() {
 			<Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
 				<CircularProgress />
 			</Box>
+		)
+	} else if (!token || !userId) {
+		return (
+			<Wrapper>
+				<Alert severity="error">Invalid password change request</Alert>
+				<NextLink href="/login">
+					<UnderlinedTypography mt={2} ml={1.5} name={'Back to Login'} />
+				</NextLink>
+			</Wrapper>
 		)
 	} else
 		return (
