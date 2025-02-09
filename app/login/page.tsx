@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import { Box, Button, CircularProgress } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
+import SubmitButton from '../components/styledMui/SubmitButton'
 import Wrapper from '../components/Wrapper'
 import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
@@ -75,9 +76,7 @@ export default function Login() {
 										type="password"
 									/>
 								</Box>
-								<Button type="submit" sx={{ mt: 2 }} loading={isSubmitting} loadingPosition="end">
-									Login
-								</Button>
+								<SubmitButton name={'Login'} loading={isSubmitting} sx={{ mt: 2 }} />
 							</Form>
 						)}
 					</Formik>

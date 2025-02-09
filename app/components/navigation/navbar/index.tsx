@@ -4,13 +4,14 @@ import logo from '@/app/assets/logo.png'
 import { MeDocument, MeQuery, useLogoutMutation, useMeQuery } from '@/app/generated/graphql'
 import { colors } from '@/theme'
 import SearchIcon from '@mui/icons-material/Search'
-import { Box, Button, IconButton, InputBase } from '@mui/material'
+import { Box, IconButton, InputBase } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { styled, SxProps, Theme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CSSProperties, useEffect, useState } from 'react'
+import { CSSProperties, ReactNode, useEffect, useState } from 'react'
+import SubmitButton from '../../styledMui/SubmitButton'
 
 export default function Navbar() {
 	const navStyle: CSSProperties = {
@@ -26,6 +27,14 @@ export default function Navbar() {
 		height: '2.8rem',
 		width: 'fit-content',
 		padding: '0 1.5rem 0 0.5rem',
+	}
+	const bloxLinksStyle: SxProps<Theme> | undefined = {
+		display: 'flex',
+		alignItems: 'center',
+		margin: '0',
+		'&:hover': {
+			color: colors.primary[800],
+		},
 	}
 	const linkStyle: SxProps<Theme> | undefined = {
 		fontSize: '0.95rem',
@@ -80,22 +89,22 @@ export default function Navbar() {
 		})
 	}
 
-	let body
+	let user: ReactNode
 	if (useMeQueryLoading) {
-		body = null
+		user = null
 	} else if (!data?.me) {
-		body = (
+		user = (
 			<>
-				<Link href={'/login'}>Login</Link>
-				<Link href={'/register'}>Register</Link>
+				<Link href={'/login'}>
+					<Box sx={linkStyle}>Login</Box>
+				</Link>
+				<Link href={'/register'}>
+					<Box sx={linkStyle}>Register</Box>
+				</Link>
 			</>
 		)
 	} else {
-		body = (
-			<Button onClick={logoutUser} loading={useLogoutMutationLoading} loadingPosition="end">
-				Logout
-			</Button>
-		)
+		user = <SubmitButton name={'Logout'} onClick={logoutUser} loading={useLogoutMutationLoading} />
 	}
 
 	useEffect(() => {
@@ -119,16 +128,7 @@ export default function Navbar() {
 					<Link href={'/'}>
 						<Image className="avatar" alt={'logo'} src={logo} style={imgStyle} />
 					</Link>
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							margin: '0',
-							'&:hover': {
-								color: colors.primary[800],
-							},
-						}}
-					>
+					<Box sx={bloxLinksStyle}>
 						<Link href={'/metrics'}>
 							<Box sx={linkStyle}>Metrics</Box>
 						</Link>
@@ -145,7 +145,9 @@ export default function Navbar() {
 					</IconButton>
 				</Box>
 				{/* LOGIN/REGISTER/LOGOUT */}
-				<Box mr="2rem">{body}</Box>
+				<Box mr="2rem" sx={bloxLinksStyle}>
+					{user}
+				</Box>
 			</Toolbar>
 		</AppBar>
 	)

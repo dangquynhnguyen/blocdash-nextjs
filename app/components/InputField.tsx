@@ -1,4 +1,5 @@
 'use client'
+import { colors } from '@/theme'
 import { Alert, FormControl, FormLabel, InputProps } from '@mui/material'
 import { useField } from 'formik'
 import Input from './styledMui/Input'
@@ -11,8 +12,22 @@ export default function InputField(props: IInputFieldProps) {
 	const [field, { error }] = useField(props)
 
 	return (
-		<FormControl>
-			<FormLabel htmlFor={field.name} sx={{ marginBottom: '5px' }}>
+		<FormControl
+			sx={{
+				'& .MuiFormLabel-root.Mui-focused': {
+					color: colors.primary[0],
+					fontWeight: 500,
+				},
+			}}
+		>
+			<FormLabel
+				htmlFor={field.name}
+				sx={{
+					marginLeft: '12px',
+					marginBottom: '5px',
+					fontSize: '0.9rem',
+				}}
+			>
 				{props.label}
 			</FormLabel>
 			<Input {...field} {...props} id={field.name} />

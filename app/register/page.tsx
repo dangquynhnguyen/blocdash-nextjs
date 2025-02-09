@@ -1,9 +1,10 @@
 'use client'
 
-import { Box, Button, CircularProgress } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
+import SubmitButton from '../components/styledMui/SubmitButton'
 import Wrapper from '../components/Wrapper'
 import { MeDocument, MeQuery, RegisterInput, useRegisterMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
@@ -70,9 +71,7 @@ export default function Register() {
 										type="password"
 									/>
 								</Box>
-								<Button type="submit" sx={{ mt: 2 }} loading={isSubmitting} loadingPosition="end">
-									Register
-								</Button>
+								<SubmitButton name={'Register'} loading={isSubmitting} sx={{ mt: 2 }} />
 							</Form>
 						)}
 					</Formik>
