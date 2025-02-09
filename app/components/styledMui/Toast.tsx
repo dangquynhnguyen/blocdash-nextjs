@@ -26,9 +26,9 @@ export default function Toast(props: IToastProps) {
 		<div>
 			<Snackbar
 				open={open}
-				autoHideDuration={6000}
+				autoHideDuration={10000}
 				onClose={handleClose}
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
 			>
 				<Alert
 					onClose={handleClose}
