@@ -12,7 +12,7 @@ export function useCheckAuth() {
 		if (!loading && data?.me && (pathname === '/login' || pathname === '/register')) {
 			router.replace('/')
 		}
-	}, [data, loading, router])
+	}, [data, loading, router, pathname])
 
 	return { data, loading }
 }

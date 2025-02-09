@@ -43,7 +43,6 @@ export default function Login() {
 			setErrors(mapFieldErrors(response.data.login.errors))
 		} else if (response.data?.login?.user) {
 			// Login successfully
-
 			router.push('/')
 		}
 	}
