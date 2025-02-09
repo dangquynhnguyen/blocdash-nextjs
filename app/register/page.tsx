@@ -71,7 +71,11 @@ export default function Register() {
 										type="password"
 									/>
 								</Box>
-								<SubmitButton name={'Register'} loading={isSubmitting} sx={{ mt: 2 }} />
+								<SubmitButton
+									name={'Register'}
+									loading={isSubmitting}
+									sx={{ mt: 2, width: '100%' }}
+								/>
 							</Form>
 						)}
 					</Formik>

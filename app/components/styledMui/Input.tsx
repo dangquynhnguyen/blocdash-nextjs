@@ -6,10 +6,12 @@ const StyledInput = styled(InputMUI)(
 	() => `
     display: inline-block;
     margin-top: 0px !important;
+    width: calc(100% - 24px);
   
     .${inputClasses.input} {
+      height: 2rem;
       font-size: 0.875rem;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
       padding: 8px 12px;
       border-radius: 8px;
@@ -36,5 +38,5 @@ const StyledInput = styled(InputMUI)(
 )
 
 export default function Input(props: InputProps) {
-	return <StyledInput fullWidth disableUnderline {...props} />
+	return <StyledInput {...props} disableUnderline />
 }

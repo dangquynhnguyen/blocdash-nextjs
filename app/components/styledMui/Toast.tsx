@@ -1,9 +1,9 @@
 import Alert, { AlertColor } from '@mui/material/Alert'
-import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
+import Snackbar, { SnackbarCloseReason, SnackbarProps } from '@mui/material/Snackbar'
 import * as React from 'react'
 import { useEffect } from 'react'
 
-interface IToastProps {
+interface IToastProps extends SnackbarProps {
 	open: boolean
 	message: string
 	severity: AlertColor
@@ -25,6 +25,7 @@ export default function Toast(props: IToastProps) {
 	return (
 		<div>
 			<Snackbar
+				{...props}
 				open={open}
 				autoHideDuration={10000}
 				onClose={handleClose}

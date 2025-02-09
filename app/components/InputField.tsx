@@ -14,6 +14,7 @@ export default function InputField(props: IInputFieldProps) {
 	return (
 		<FormControl
 			sx={{
+				width: '100%',
 				'& .MuiFormLabel-root.Mui-focused': {
 					color: colors.primary[0],
 					fontWeight: 500,
@@ -30,7 +31,7 @@ export default function InputField(props: IInputFieldProps) {
 			>
 				{props.label}
 			</FormLabel>
-			<Input {...field} {...props} id={field.name} />
+			<Input {...field} {...props} id={field.name} fullWidth={false} />
 			{error && <Alert severity="error">{error}</Alert>}
 		</FormControl>
 	)

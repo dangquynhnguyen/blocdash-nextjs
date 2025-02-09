@@ -3,9 +3,11 @@
 
 import { Box, CircularProgress } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
+import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
 import SubmitButton from '../components/styledMui/SubmitButton'
+import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
 import Wrapper from '../components/Wrapper'
 import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
@@ -76,7 +78,12 @@ export default function Login() {
 										type="password"
 									/>
 								</Box>
-								<SubmitButton name={'Login'} loading={isSubmitting} sx={{ mt: 2 }} />
+								<Box>
+									<NextLink href="/forgot-password">
+										<UnderlinedTypography mt={2} ml={1.5} name={'Forgot password ?'} />
+									</NextLink>
+								</Box>
+								<SubmitButton name={'Login'} loading={isSubmitting} sx={{ mt: 2, width: '100%' }} />
 							</Form>
 						)}
 					</Formik>
