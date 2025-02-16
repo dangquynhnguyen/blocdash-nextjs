@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:4000/graphql'
+schema: 'http://hk8kk8g8o40wwsowcokg0wo4.82.29.170.84.sslip.io/graphql'
 documents: 'app/graphql_client/**/*.graphql'
 generates:
   app/generated/graphql.tsx:
