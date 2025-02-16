@@ -10,7 +10,7 @@ import {
 function makeClient() {
 	const httpLink = new HttpLink({
 		// this needs to be an absolute url, as relative urls cannot be used in SSR
-		uri: 'http://hk8kk8g8o40wwsowcokg0wo4.82.29.170.84.sslip.io/graphql',
+		uri: 'https://api.blocdash.com/graphql',
 		// you can disable result caching here if you want to
 		// (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
 		fetchOptions: { cache: 'force-cache' },
