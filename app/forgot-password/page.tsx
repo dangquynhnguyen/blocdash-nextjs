@@ -1,6 +1,8 @@
 'use client'
 
-import { Box, CircularProgress } from '@mui/material'
+import { colors } from '@/theme'
+import CheckIcon from '@mui/icons-material/Check'
+import { Alert, Box, CircularProgress, Typography } from '@mui/material'
 import { Form, Formik } from 'formik'
 import NextLink from 'next/link'
 import InputField from '../components/InputField'
@@ -32,10 +34,19 @@ export default function ForgotPassword() {
 	} else
 		return (
 			<Wrapper>
+				<Typography fontSize="1.25rem" fontWeight="bold" color={colors.logo[1000]} p="1rem 0">
+					Reset your password
+				</Typography>
+				<Typography fontSize="0.8rem" color={colors.primary[300]}>
+					To reset your password, enter your email below and submit. An email will be sent to you
+					with instructions about how to complete the process.
+				</Typography>
 				<Formik initialValues={initialValues} onSubmit={onForgotPasswordSubmit}>
 					{({ isSubmitting }) =>
 						!loading && data ? (
-							<Box>Please check your inbox</Box>
+							<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+								Please check your email inbox for a link to complete the reset.
+							</Alert>
 						) : (
 							<Form>
 								<Box mt={2}>

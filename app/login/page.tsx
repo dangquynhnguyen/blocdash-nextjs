@@ -1,13 +1,13 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import { Box, CircularProgress } from '@mui/material'
+import { colors } from '@/theme'
+import { Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
-import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
 import SubmitButton from '../components/styledMui/SubmitButton'
-import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
 import Wrapper from '../components/Wrapper'
 import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
 import { mapFieldErrors } from '../helpers/mapFieldErrors'
@@ -58,6 +58,15 @@ export default function Login() {
 				</Box>
 			) : (
 				<Wrapper>
+					<Typography fontSize="1.25rem" fontWeight="bold" color={colors.logo[1000]} p="1rem 0">
+						Log in to your account
+					</Typography>
+					<Typography fontSize="0.8rem" color={colors.primary[300]}>
+						Don't have an account?{' '}
+						<Link href={'/register'} fontWeight="bold">
+							Sign Up
+						</Link>
+					</Typography>
 					{error && <p>Failed to login. Internal server error.</p>}
 					<Formik initialValues={initialValues} onSubmit={onLoginSubmit}>
 						{({ isSubmitting }) => (
@@ -78,10 +87,10 @@ export default function Login() {
 										type="password"
 									/>
 								</Box>
-								<Box>
-									<NextLink href="/forgot-password">
-										<UnderlinedTypography mt={2} ml={1.5} name={'Forgot password ?'} />
-									</NextLink>
+								<Box ml={1.5} mt="1rem">
+									<Link href="/forgot-password" fontSize="0.8rem" color={colors.primary[300]}>
+										Forgot password ?
+									</Link>
 								</Box>
 								<SubmitButton name={'Login'} loading={isSubmitting} sx={{ mt: 2, width: '100%' }} />
 							</Form>

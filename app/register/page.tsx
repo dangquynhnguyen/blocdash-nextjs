@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { Box, CircularProgress } from '@mui/material'
+import { colors } from '@/theme'
+import { Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
 import InputField from '../components/InputField'
@@ -52,6 +54,15 @@ export default function Register() {
 				</Box>
 			) : (
 				<Wrapper>
+					<Typography fontSize="1.25rem" fontWeight="bold" color={colors.logo[1000]} p="1rem 0">
+						Create your account
+					</Typography>
+					<Typography fontSize="0.8rem" color={colors.primary[300]}>
+						Have an account?{' '}
+						<Link href={'/login'} fontWeight="bold">
+							Log in now
+						</Link>
+					</Typography>
 					{error && <p>Failed to register. Internal server error.</p>}
 					{data && data.register?.success && <p>Registered successfully{JSON.stringify(data)}</p>}
 					<Formik initialValues={initialValues} onSubmit={onRegisterSubmit}>
