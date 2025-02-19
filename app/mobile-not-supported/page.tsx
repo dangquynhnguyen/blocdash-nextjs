@@ -9,6 +9,7 @@ export default function MobileNotSupported() {
 				flexDirection: 'column',
 				alignItems: 'center',
 				justifyContent: 'center',
+				p: '1rem',
 			}}
 		>
 			<Typography fontWeight="bold">Mobile not supported.</Typography>
