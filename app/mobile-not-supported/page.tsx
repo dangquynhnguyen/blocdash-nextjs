@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Box, Typography } from '@mui/material'
+import { Box, Skeleton, Typography } from '@mui/material'
 
 export default function MobileNotSupported() {
 	return (
@@ -12,7 +12,24 @@ export default function MobileNotSupported() {
 				p: '1rem',
 			}}
 		>
-			<Typography fontWeight="bold">Mobile not supported.</Typography>
+			<Skeleton variant="rounded" animation="wave" width="50vw" height="25vh" />
+			<Skeleton
+				variant="rounded"
+				animation="wave"
+				width="50vw"
+				height="3vh"
+				sx={{ mt: '0.5rem' }}
+			/>
+			<Skeleton
+				variant="rounded"
+				animation="wave"
+				width="50vw"
+				height="3vh"
+				sx={{ mt: '0.5rem' }}
+			/>
+			<Typography fontWeight="bold" mb="1rem" mt="1rem">
+				Mobile not supported
+			</Typography>
 			<Typography>
 				It's looks like your're trying to open Blocdash.com on a mobile device.
 			</Typography>
