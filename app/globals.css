@@ -43,3 +43,12 @@ a {
 		color-scheme: dark;
 	}
 }
+
+::-moz-selection {
+	/* Code for Firefox */
+	background: #ffcbb3;
+}
+
+::selection {
+	background: #ffcbb3;
+}

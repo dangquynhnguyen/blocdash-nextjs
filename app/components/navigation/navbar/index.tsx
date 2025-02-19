@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import logo from '@/app/assets/logo.png'
-import { MeDocument, MeQuery, useLogoutMutation, useMeQuery } from '@/app/generated/graphql'
+import { useMeQuery } from '@/app/generated/graphql'
 import { colors } from '@/theme'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'
@@ -11,7 +12,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CSSProperties, ReactNode, useEffect, useState } from 'react'
-import SubmitButton from '../../styledMui/SubmitButton'
+import AccountMenu from './AcountMenu'
 
 export default function Navbar() {
 	const navStyle: CSSProperties = {
@@ -74,20 +75,6 @@ export default function Navbar() {
 	}))
 
 	const { data, loading: useMeQueryLoading } = useMeQuery()
-	const [logout, { loading: useLogoutMutationLoading }] = useLogoutMutation()
-
-	async function logoutUser() {
-		await logout({
-			update(cache, { data }) {
-				if (data?.logout) {
-					cache.writeQuery<MeQuery>({
-						query: MeDocument,
-						data: { me: null },
-					})
-				}
-			},
-		})
-	}
 
 	let user: ReactNode
 	if (useMeQueryLoading) {
@@ -104,7 +91,8 @@ export default function Navbar() {
 			</>
 		)
 	} else {
-		user = <SubmitButton name={'Logout'} onClick={logoutUser} loading={useLogoutMutationLoading} />
+		user = <AccountMenu meQuery={data} />
+		// user = <SubmitButton name={'Logout'} onClick={logoutUser} loading={useLogoutMutationLoading} />
 	}
 
 	useEffect(() => {
