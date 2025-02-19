@@ -31,7 +31,7 @@ export default function MobileNotSupported() {
 				Mobile not supported
 			</Typography>
 			<Typography fontSize="0.9rem">
-				It's looks like your're trying to open Blocdash.com on a mobile device.
+				It looks like you're trying to open Blocdash.com on a mobile device.
 			</Typography>
 			<Typography fontSize="0.9rem">
 				For now, the website is only supported on desktops and tablets.
