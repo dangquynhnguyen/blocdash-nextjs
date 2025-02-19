@@ -10,6 +10,7 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import Tooltip from '@mui/material/Tooltip'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 import SubmitButton from '../../styledMui/SubmitButton'
 import MenuItem from './MenuItem'
@@ -19,6 +20,7 @@ interface AccountMenuProps {
 }
 
 export default function AccountMenu(props: AccountMenuProps) {
+	const router = useRouter()
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -116,7 +118,13 @@ export default function AccountMenu(props: AccountMenuProps) {
 						{props.meQuery?.me?.email}
 					</Typography>
 				</Box>
-				<MenuItem onClick={handleClose} name={'Account settings'} icon={<Settings />} />
+				<MenuItem
+					onClick={() => {
+						router.push('/account/settings')
+					}}
+					name={'Account settings'}
+					icon={<Settings />}
+				/>
 				<MenuItem onClick={logoutUser} name={'Log out'} icon={<Logout />}></MenuItem>
 				<Divider />
 				<Box m="1rem 1rem 0.5rem 1rem">

@@ -46,8 +46,6 @@ function ChangePasswordContent() {
 					changePasswordInput: values,
 				},
 				update(cache, { data }) {
-					console.log('DATA LOGIN', data)
-
 					if (data?.changePassword.success) {
 						cache.writeQuery<MeQuery>({
 							query: MeDocument,

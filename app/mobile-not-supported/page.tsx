@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Box, Skeleton, Typography } from '@mui/material'
 
-export default function MobileNotSupported() {
+export default async function MobileNotSupported() {
 	return (
 		<Box
 			sx={{
