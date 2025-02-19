@@ -27,13 +27,15 @@ export default function MobileNotSupported() {
 				height="3vh"
 				sx={{ mt: '0.5rem' }}
 			/>
-			<Typography fontWeight="bold" mb="1rem" mt="1rem">
+			<Typography fontSize="1.2rem" fontWeight="bold" mb="0.5rem" mt="1.5rem">
 				Mobile not supported
 			</Typography>
-			<Typography>
+			<Typography fontSize="0.9rem">
 				It's looks like your're trying to open Blocdash.com on a mobile device.
 			</Typography>
-			<Typography>For now, the website is only supported on desktops and tablets.</Typography>
+			<Typography fontSize="0.9rem">
+				For now, the website is only supported on desktops and tablets.
+			</Typography>
 		</Box>
 	)
 }
