@@ -92,7 +92,6 @@ export default function Navbar() {
 		)
 	} else {
 		user = <AccountMenu meQuery={data} />
-		// user = <SubmitButton name={'Logout'} onClick={logoutUser} loading={useLogoutMutationLoading} />
 	}
 
 	useEffect(() => {

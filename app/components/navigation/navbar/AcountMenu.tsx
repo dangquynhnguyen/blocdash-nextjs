@@ -2,7 +2,6 @@
 import { MeDocument, MeQuery, useLogoutMutation } from '@/app/generated/graphql'
 import { colors } from '@/theme'
 import Logout from '@mui/icons-material/Logout'
-import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import { Typography } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
@@ -12,6 +11,7 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import Tooltip from '@mui/material/Tooltip'
 import * as React from 'react'
+import SubmitButton from '../../styledMui/SubmitButton'
 import MenuItem from './MenuItem'
 
 interface AccountMenuProps {
@@ -66,7 +66,7 @@ export default function AccountMenu(props: AccountMenuProps) {
 								border: `2px solid ${colors.logo[800]}`,
 							}}
 						>
-							DA
+							{props.meQuery?.me?.username.substring(0, 2).toUpperCase()}
 						</Avatar>
 					</IconButton>
 				</Tooltip>
@@ -108,20 +108,20 @@ export default function AccountMenu(props: AccountMenuProps) {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				<Typography p="0.5rem 1rem" m="0" fontSize="0.85rem">
-					{props.meQuery?.me?.email}
-				</Typography>
+				<Box mb="0.25rem">
+					<Typography p="0.5rem 0 0 1rem" m="0" fontSize="0.85rem" fontWeight="bold">
+						{props.meQuery?.me?.username}
+					</Typography>
+					<Typography p="0.5rem 1rem" m="0" fontSize="0.85rem">
+						{props.meQuery?.me?.email}
+					</Typography>
+				</Box>
+				<MenuItem onClick={handleClose} name={'Account settings'} icon={<Settings />} />
+				<MenuItem onClick={logoutUser} name={'Log out'} icon={<Logout />}></MenuItem>
 				<Divider />
-				<MenuItem
-					onClick={handleClose}
-					sx={{
-						fontSize: '0.85rem',
-					}}
-					name="Add another account"
-					icon={<PersonAdd />}
-				/>
-				<MenuItem onClick={handleClose} name={'Settings'} icon={<Settings />} />
-				<MenuItem onClick={logoutUser} name={'Logout'} icon={<Logout />}></MenuItem>
+				<Box m="1rem 1rem 0.5rem 1rem">
+					<SubmitButton name={'Upgrade to Pro'} fullWidth />
+				</Box>
 			</Menu>
 		</React.Fragment>
 	)

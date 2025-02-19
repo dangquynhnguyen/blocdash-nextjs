@@ -1,3 +1,4 @@
+import { colors } from '@/theme'
 import {
 	ListItemIcon,
 	MenuItem as MUI_MenuItem,
@@ -16,6 +17,10 @@ export default function MenuItems(props: MenuItemProp) {
 			onClick={props.onClick}
 			sx={{
 				fontSize: '0.85rem',
+				color: colors.primary[400],
+				'&:hover': {
+					color: colors.primary[50],
+				},
 			}}
 		>
 			<ListItemIcon>{props.icon}</ListItemIcon>
