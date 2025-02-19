@@ -1,13 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { colors } from '@/theme'
 import CheckIcon from '@mui/icons-material/Check'
-import { Alert, Box, CircularProgress, Typography } from '@mui/material'
+import { Alert, Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik } from 'formik'
-import NextLink from 'next/link'
 import InputField from '../components/InputField'
 import SubmitButton from '../components/styledMui/SubmitButton'
-import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
 import Wrapper from '../components/Wrapper'
 import { ForgotPasswordInput, useForgotPasswordMutation } from '../generated/graphql'
 import { useCheckAuth } from '../utils/useCheckAuth'
@@ -50,16 +49,24 @@ export default function ForgotPassword() {
 						) : (
 							<Form>
 								<Box mt={2}>
-									<InputField name="email" placeholder="Email" label="Email" type="email" />
+									<InputField
+										name="email"
+										placeholder="you@example.com"
+										label="Email"
+										type="email"
+									/>
 								</Box>
-								<NextLink href="/login">
-									<UnderlinedTypography mt={2} ml={1.5} name={'Back to Login'} />
-								</NextLink>
 								<SubmitButton
-									name={'Send Reset Password Email'}
+									name={'Send Reset Email'}
 									loading={isSubmitting}
 									sx={{ mt: 2, width: '100%' }}
 								/>
+								<Typography fontSize="0.8rem" color={colors.primary[300]} mt="1rem">
+									Already have an account?{' '}
+									<Link href={'/login'} fontWeight="bold">
+										Login
+									</Link>
+								</Typography>
 							</Form>
 						)
 					}

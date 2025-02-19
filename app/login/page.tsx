@@ -74,7 +74,7 @@ export default function Login() {
 								<Box mt={2}>
 									<InputField
 										name="usernameOrEmail"
-										placeholder="Username or Email"
+										placeholder="you@example.com"
 										label="Username or Email"
 										type="text"
 									/>
@@ -82,7 +82,7 @@ export default function Login() {
 								<Box mt={2}>
 									<InputField
 										name="password"
-										placeholder="Password"
+										placeholder="••••••••••"
 										label="Password"
 										type="password"
 									/>

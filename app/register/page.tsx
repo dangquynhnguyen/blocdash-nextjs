@@ -69,15 +69,20 @@ export default function Register() {
 						{({ isSubmitting }) => (
 							<Form>
 								<Box mt={2}>
-									<InputField name="username" placeholder="Username" label="Username" type="text" />
+									<InputField name="username" placeholder="username" label="Username" type="text" />
 								</Box>
 								<Box mt={2}>
-									<InputField name="email" placeholder="Email" label="Email" type="text" />
+									<InputField
+										name="email"
+										placeholder="you@example.com"
+										label="Email"
+										type="email"
+									/>
 								</Box>
 								<Box mt={2}>
 									<InputField
 										name="password"
-										placeholder="Password"
+										placeholder="••••••••••"
 										label="Password"
 										type="password"
 									/>

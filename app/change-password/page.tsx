@@ -2,7 +2,7 @@
 'use client'
 
 import { colors } from '@/theme'
-import { Alert, Box, CircularProgress, Typography } from '@mui/material'
+import { Alert, Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import NextLink from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -87,13 +87,19 @@ function ChangePasswordContent() {
 	} else
 		return (
 			<Wrapper>
+				<Typography fontSize="1.25rem" fontWeight="bold" color={colors.logo[1000]} p="1rem 0">
+					Reset your password
+				</Typography>
+				<Typography fontSize="0.8rem" color={colors.primary[300]}>
+					Type in a new secure password and press save to update your password.
+				</Typography>
 				<Formik initialValues={initialValues} onSubmit={onChangePasswordSubmit}>
 					{({ isSubmitting }) => (
 						<Form>
 							<Box mt={2}>
 								<InputField
 									name="newPassword"
-									placeholder="New Password"
+									placeholder="••••••••••"
 									label="New Password"
 									type="password"
 								/>
@@ -109,10 +115,16 @@ function ChangePasswordContent() {
 								</Box>
 							)}
 							<SubmitButton
-								name={'Change Password'}
+								name={'Save new password'}
 								loading={isSubmitting}
 								sx={{ mt: 2, width: '100%' }}
 							/>
+							<Typography fontSize="0.8rem" color={colors.primary[300]} mt="1rem">
+								Already have an account?{' '}
+								<Link href={'/login'} fontWeight="bold">
+									Login
+								</Link>
+							</Typography>
 						</Form>
 					)}
 				</Formik>
