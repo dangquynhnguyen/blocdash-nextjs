@@ -11,7 +11,7 @@ import {
 
 function makeClient() {
 	const httpLink = new HttpLink({
-		uri: __prod__ ? 'https://api.blocdash.com/graphql' : 'http://localhost:4000/graphql',
+		uri: __prod__ ? 'https://api.blocdash.com/graphql' : 'https://api.blocdash.com/graphql',
 		credentials: 'include',
 		fetchOptions: {
 			cache: 'force-cache',
@@ -24,7 +24,7 @@ function makeClient() {
 	})
 }
 
-// you need to create a component to wrap your app in
+// you need to create a component to wrap your app in.
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
 	return <ApolloNextAppProvider makeClient={makeClient}>{children}</ApolloNextAppProvider>
 }

@@ -118,13 +118,7 @@ export default function AccountMenu(props: AccountMenuProps) {
 						{props.meQuery?.me?.email}
 					</Typography>
 				</Box>
-				<MenuItem
-					onClick={() => {
-						router.push('/account/settings')
-					}}
-					name={'Account settings'}
-					icon={<Settings />}
-				/>
+				<MenuItem name={'Account settings'} route="/account/settings/general" icon={<Settings />} />
 				<MenuItem onClick={logoutUser} name={'Log out'} icon={<Logout />}></MenuItem>
 				<Divider />
 				<Box m="1rem 1rem 0.5rem 1rem">

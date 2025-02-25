@@ -1,9 +1,11 @@
 'use client'
-import { colors } from '@/theme'
-import { Box, Container, Grid2, Typography } from '@mui/material'
-import SettingsMenu from './SettingsMenu'
 
-export default function AccountSettings() {
+import { colors } from '@/theme'
+import { Container, Grid2, Typography } from '@mui/material'
+import SettingsOption, { SettingsOptionProps } from './SettingsOption'
+import Sidebar from './Sidebar'
+
+export default function AccountSettings({ params }: SettingsOptionProps) {
 	return (
 		<Container maxWidth="lg">
 			<Grid2 container spacing={2}>
@@ -13,13 +15,13 @@ export default function AccountSettings() {
 					</Typography>
 				</Grid2>
 				<Grid2 size={3}>
-					<SettingsMenu />
+					<Sidebar />
 				</Grid2>
 				<Grid2
 					size={9}
 					sx={{ border: `1px solid ${colors.primary[900]}`, borderRadius: 3, height: '50vh' }}
 				>
-					<Box></Box>
+					<SettingsOption params={params} />
 				</Grid2>
 			</Grid2>
 		</Container>

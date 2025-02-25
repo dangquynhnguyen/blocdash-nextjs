@@ -5,18 +5,23 @@ import {
 	MenuItem as MUI_MenuItem,
 	MenuItemProps as MUI_MenuItemProps,
 } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 
 interface MenuItemProp extends MUI_MenuItemProps {
 	name: string
+	route?: string
 	icon?: ReactNode
 }
 
 export default function MenuItems(props: MenuItemProp) {
+	const router = useRouter()
 	return (
 		<MUI_MenuItem
 			{...props}
-			onClick={props.onClick}
+			onClick={() => {
+				router.push(props.route || '#')
+			}}
 			sx={{
 				fontSize: '0.85rem',
 				color: colors.primary[400],
