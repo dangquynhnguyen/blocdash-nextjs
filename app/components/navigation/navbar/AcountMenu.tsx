@@ -122,7 +122,7 @@ export default function AccountMenu(props: AccountMenuProps) {
 				<MenuItem onClick={logoutUser} name={'Log out'} icon={<Logout />}></MenuItem>
 				<Divider />
 				<Box m="1rem 1rem 0.5rem 1rem">
-					<SubmitButton name={'Upgrade to Pro'} fullWidth />
+					<SubmitButton name={'Upgrade to Pro'} href="/account/settings/plans" fullWidth />
 				</Box>
 			</Menu>
 		</React.Fragment>
