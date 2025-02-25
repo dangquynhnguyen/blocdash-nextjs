@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { colors } from '@/theme'
 import { Container, Grid2, Typography } from '@mui/material'
-import SettingsOption, { SettingsOptionProps } from './SettingsOption'
+import SettingsOption from './SettingsOption'
 import Sidebar from './Sidebar'
 
-export default function AccountSettings({ params }: SettingsOptionProps) {
+export default function AccountSettings({ params }: any) {
 	return (
 		<Container maxWidth="lg">
 			<Grid2 container spacing={2}>
