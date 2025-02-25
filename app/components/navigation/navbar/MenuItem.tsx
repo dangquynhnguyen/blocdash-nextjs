@@ -1,3 +1,4 @@
+import { OptionPage } from '@/app/account/settings/[option]/constants'
 import { colors } from '@/theme'
 import {
 	Box,
@@ -9,8 +10,7 @@ import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 
 interface MenuItemProp extends MUI_MenuItemProps {
-	name: string
-	route?: string
+	optionpage: OptionPage
 	icon?: ReactNode
 }
 
@@ -20,7 +20,7 @@ export default function MenuItems(props: MenuItemProp) {
 		<MUI_MenuItem
 			{...props}
 			onClick={() => {
-				router.push(props.route || '#')
+				router.push('/account/settings' + props.optionpage.route)
 			}}
 			sx={{
 				fontSize: '0.85rem',
@@ -32,7 +32,7 @@ export default function MenuItems(props: MenuItemProp) {
 			}}
 		>
 			{props.icon !== undefined ? <ListItemIcon>{props.icon}</ListItemIcon> : <Box />}
-			{props.name}
+			{props.optionpage.name}
 		</MUI_MenuItem>
 	)
 }

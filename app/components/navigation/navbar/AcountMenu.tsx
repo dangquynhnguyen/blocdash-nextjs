@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { accountSetting, plan } from '@/app/account/settings/[option]/constants'
 import { MeDocument, MeQuery, useLogoutMutation } from '@/app/generated/graphql'
 import { colors } from '@/theme'
 import Logout from '@mui/icons-material/Logout'
@@ -118,11 +119,11 @@ export default function AccountMenu(props: AccountMenuProps) {
 						{props.meQuery?.me?.email}
 					</Typography>
 				</Box>
-				<MenuItem name={'Account settings'} route="/account/settings/general" icon={<Settings />} />
-				<MenuItem onClick={logoutUser} name={'Log out'} icon={<Logout />}></MenuItem>
+				<MenuItem optionpage={accountSetting} icon={<Settings />} />
+				<MenuItem onClick={logoutUser} optionpage={{ name: 'Log out' }} icon={<Logout />} />
 				<Divider />
 				<Box m="1rem 1rem 0.5rem 1rem">
-					<SubmitButton name={'Upgrade to Pro'} href="/account/settings/plans" fullWidth />
+					<SubmitButton name={'Upgrade to Pro'} href={plan.route} fullWidth />
 				</Box>
 			</Menu>
 		</React.Fragment>
