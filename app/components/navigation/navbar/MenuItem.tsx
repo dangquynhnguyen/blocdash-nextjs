@@ -19,9 +19,13 @@ export default function MenuItems(props: MenuItemProp) {
 	return (
 		<MUI_MenuItem
 			{...props}
-			onClick={() => {
-				router.push('/account/settings' + props.optionpage.route)
-			}}
+			onClick={
+				props.optionpage.route
+					? () => {
+							router.push('/account/settings' + props.optionpage.route)
+						}
+					: props.onClick
+			}
 			sx={{
 				fontSize: '0.85rem',
 				color: colors.primary[400],

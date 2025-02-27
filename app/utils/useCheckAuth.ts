@@ -10,14 +10,18 @@ export function useCheckAuth() {
 
 	useEffect(() => {
 		if (
-			!loading &&
-			data?.me &&
-			(pathname === '/login' ||
-				pathname === '/register' ||
-				pathname === '/forgot-password' ||
-				pathname === '/change-password')
+			pathname === '/login' ||
+			pathname === '/register' ||
+			pathname === '/forgot-password' ||
+			pathname === '/change-password'
 		) {
-			router.replace('/')
+			if (!loading && data?.me) {
+				router.replace('/')
+			}
+		} else {
+			if (!loading && !data?.me) {
+				router.replace('/')
+			}
 		}
 	}, [data, loading, router, pathname])
 

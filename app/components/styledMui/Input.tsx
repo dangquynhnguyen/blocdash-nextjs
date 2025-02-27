@@ -13,7 +13,7 @@ const StyledInput = styled(InputMUI)(
       font-size: 0.875rem;
       font-weight: 500;
       line-height: 1.5;
-      padding: 8px 12px;
+      padding: 4px 12px;
       border-radius: 8px;
       color: ${colors.primary[100]};
       background: ${colors.primary[1000]};
