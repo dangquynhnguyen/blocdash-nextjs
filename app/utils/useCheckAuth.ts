@@ -18,10 +18,6 @@ export function useCheckAuth() {
 			if (!loading && data?.me) {
 				router.replace('/')
 			}
-		} else {
-			if (!loading && !data?.me) {
-				router.replace('/')
-			}
 		}
 	}, [data, loading, router, pathname])
 
