@@ -1,0 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client'
+
+import { Box } from '@mui/material'
+import { use } from 'react'
+import Sidebar from './Sidebar'
+
+interface PageProps {
+	params: Promise<{ metricParam: string }>
+}
+
+export default function Metrics({ params }: PageProps) {
+	const { metricParam } = use(params)
+	return (
+		<Box m="0" p="0">
+			<Sidebar />
+			{/* <Typography>Metrics : {metricParam}</Typography> */}
+		</Box>
+	)
+}

@@ -30,7 +30,7 @@ export default function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
 				<ApolloWrapper>
 					<Navigation />
-					<Box sx={{ marginTop: '5.5rem' }}>{children}</Box>
+					<Box sx={{ marginTop: '5rem' }}>{children}</Box>
 				</ApolloWrapper>
 			</body>
 		</html>

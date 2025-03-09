@@ -21,7 +21,7 @@ export default function Navbar() {
 		alignContent: 'center',
 		padding: '0 0.6rem 0 0.6rem',
 		margin: '0',
-		height: '4.8rem',
+		height: '5rem',
 		boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
 	}
 	const imgStyle: CSSProperties = {
