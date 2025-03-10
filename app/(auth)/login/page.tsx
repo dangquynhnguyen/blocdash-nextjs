@@ -6,12 +6,12 @@ import { colors } from '@/theme'
 import { Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
-import InputField from '../components/InputField'
-import SubmitButton from '../components/styledMui/SubmitButton'
-import Wrapper from '../components/Wrapper'
-import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
-import { mapFieldErrors } from '../helpers/mapFieldErrors'
-import { useCheckAuth } from '../utils/useCheckAuth'
+import InputField from '../../components/InputField'
+import SubmitButton from '../../components/styledMui/SubmitButton'
+import Wrapper from '../../components/Wrapper'
+import { LoginInput, MeDocument, MeQuery, useLoginMutation } from '../../generated/graphql'
+import { mapFieldErrors } from '../../helpers/mapFieldErrors'
+import { useCheckAuth } from '../../utils/useCheckAuth'
 
 export default function Login() {
 	const router = useRouter()

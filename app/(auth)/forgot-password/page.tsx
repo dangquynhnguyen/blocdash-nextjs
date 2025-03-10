@@ -5,11 +5,11 @@ import { colors } from '@/theme'
 import CheckIcon from '@mui/icons-material/Check'
 import { Alert, Box, CircularProgress, Link, Typography } from '@mui/material'
 import { Form, Formik } from 'formik'
-import InputField from '../components/InputField'
-import SubmitButton from '../components/styledMui/SubmitButton'
-import Wrapper from '../components/Wrapper'
-import { ForgotPasswordInput, useForgotPasswordMutation } from '../generated/graphql'
-import { useCheckAuth } from '../utils/useCheckAuth'
+import InputField from '../../components/InputField'
+import SubmitButton from '../../components/styledMui/SubmitButton'
+import Wrapper from '../../components/Wrapper'
+import { ForgotPasswordInput, useForgotPasswordMutation } from '../../generated/graphql'
+import { useCheckAuth } from '../../utils/useCheckAuth'
 
 export default function ForgotPassword() {
 	const { data: authData, loading: authLoading } = useCheckAuth()

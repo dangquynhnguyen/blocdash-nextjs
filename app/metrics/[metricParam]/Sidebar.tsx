@@ -1,16 +1,22 @@
+'use client'
 import MenuIcon from '@mui/icons-material/Menu'
 import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import { CSSObject, Theme, styled } from '@mui/material/styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { colors } from '@/theme'
 import TreeView from './TreeView'
 
 export default function Sidebar() {
 	const [open, setOpen] = useState(true)
-	const drawerWidth = window.screen.width / 5.5
+	const [drawerWidth, setDrawerWidth] = useState(0)
+
+	useEffect(() => {
+		// Set drawer width after component mounts
+		setDrawerWidth(window.screen.width / 5.5)
+	}, [])
 	const drawerMixin = (theme: Theme, isOpen: boolean): CSSObject => ({
 		position: 'relative',
 		height: 'calc(100vh - 5.5rem)',

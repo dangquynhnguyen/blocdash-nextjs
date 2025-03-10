@@ -7,18 +7,18 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import NextLink from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useState } from 'react'
-import InputField from '../components/InputField'
-import SubmitButton from '../components/styledMui/SubmitButton'
-import UnderlinedTypography from '../components/styledMui/UnderlinedTypography'
-import Wrapper from '../components/Wrapper'
+import InputField from '../../components/InputField'
+import SubmitButton from '../../components/styledMui/SubmitButton'
+import UnderlinedTypography from '../../components/styledMui/UnderlinedTypography'
+import Wrapper from '../../components/Wrapper'
 import {
 	ChangePasswordInput,
 	MeDocument,
 	MeQuery,
 	useChangePasswordMutation,
-} from '../generated/graphql'
-import { mapFieldErrors } from '../helpers/mapFieldErrors'
-import { useCheckAuth } from '../utils/useCheckAuth'
+} from '../../generated/graphql'
+import { mapFieldErrors } from '../../helpers/mapFieldErrors'
+import { useCheckAuth } from '../../utils/useCheckAuth'
 
 function ChangePasswordContent() {
 	const router = useRouter()
