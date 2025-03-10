@@ -4,12 +4,17 @@ import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import { CSSObject, Theme, styled } from '@mui/material/styles'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { colors } from '@/theme'
 import TreeView from './TreeView'
 
-export default function Sidebar() {
+type Props = {
+	set_selectedMetric: Dispatch<SetStateAction<string | undefined>>
+	selectedMetric: string | undefined
+}
+
+export default function Sidebar(props: Props) {
 	const [open, setOpen] = useState(true)
 	const [drawerWidth, setDrawerWidth] = useState(0)
 
@@ -70,7 +75,12 @@ export default function Sidebar() {
 				<IconButton onClick={handleDrawer}>{<MenuIcon />}</IconButton>
 			</DrawerHeader>
 			<Divider />
-			{open && <TreeView />}
+			{open && (
+				<TreeView
+					set_selectedMetric={props.set_selectedMetric}
+					selectedMetric={props.selectedMetric}
+				/>
+			)}
 		</Drawer>
 	)
 }

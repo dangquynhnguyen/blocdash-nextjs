@@ -1,3 +1,4 @@
+'use client'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import { Box, Collapse, Typography } from '@mui/material'
 import { alpha, styled } from '@mui/material/styles'
@@ -21,6 +22,7 @@ import clsx from 'clsx'
 import * as React from 'react'
 
 import { colors } from '@/theme'
+import { Dispatch, SetStateAction } from 'react'
 import { TextIcon } from './TextIcon'
 import { constants } from './TreeView.constants'
 import { Type } from './TreeView.type'
@@ -108,7 +110,12 @@ interface CustomTreeItemProps
 	extends Omit<UseTreeItem2Parameters, 'rootRef'>,
 		Omit<React.HTMLAttributes<HTMLLIElement>, 'onFocus'> {}
 
-export default function TreeView() {
+type Props = {
+	set_selectedMetric: Dispatch<SetStateAction<string | undefined>>
+	selectedMetric: string | undefined
+}
+
+export default function TreeView(props: Props) {
 	const StyledTreeItemRoot = styled(TreeItem2Root)(({ theme }) => ({
 		color: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.grey[400],
 		position: 'relative',
@@ -194,14 +201,16 @@ export default function TreeView() {
 		<RichTreeView
 			items={constants}
 			aria-label="tree-view"
-			defaultExpandedItems={['1', '2', '3', '4']}
-			defaultSelectedItems="2.1"
+			defaultExpandedItems={constants.map((item) => item.id)}
+			defaultSelectedItems={constants[1]?.children?.[0]?.id}
 			sx={{
 				flexGrow: 1,
 				maxWidth: 400,
 				overflowY: 'auto',
 			}}
 			slots={{ item: CustomTreeItem }}
+			selectedItems={props.selectedMetric}
+			onSelectedItemsChange={(event, itemId) => props.set_selectedMetric(itemId!)}
 		/>
 	)
 }

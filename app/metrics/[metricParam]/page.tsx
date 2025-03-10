@@ -3,8 +3,9 @@
 'use client'
 
 import { Box, Typography } from '@mui/material'
-import { use } from 'react'
+import { use, useState } from 'react'
 import Sidebar from './Sidebar'
+import { constants } from './TreeView.constants'
 
 interface PageProps {
 	params: Promise<{ metricParam: string }>
@@ -12,11 +13,12 @@ interface PageProps {
 
 export default function Metrics({ params }: PageProps) {
 	const { metricParam } = use(params)
+	const [selectedMetric, set_selectedMetric] = useState(constants[1]?.children?.[0]?.id)
 	return (
 		<Box m="0" p="0">
-			<Sidebar />
+			<Sidebar set_selectedMetric={set_selectedMetric} selectedMetric={selectedMetric} />
 			<Typography>Metrics : {metricParam}</Typography>
-			<Typography>Selected Item : {metricParam}</Typography>
+			<Typography>Selected Item : {selectedMetric}</Typography>
 		</Box>
 	)
 }

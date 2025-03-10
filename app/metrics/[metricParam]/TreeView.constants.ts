@@ -3,7 +3,7 @@ import { ExtendedTreeItemProps } from './TreeView.type'
 
 export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 	{
-		id: '1',
+		id: 'address-balances',
 		label: 'Address Balances (ICP)',
 		fileType: 'category',
 		isAvailable: false,
@@ -53,25 +53,25 @@ export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 		],
 	},
 	{
-		id: '2',
+		id: 'exchange-activity',
 		label: 'Exchange Activity',
 		fileType: 'category',
 		isAvailable: true,
 		children: [
 			{
-				id: '2.1',
+				id: 'exchange-netflow-volume',
 				label: 'Exchange Netflow Volume',
 				fileType: 'indicator',
 				isAvailable: true,
 			},
 			{
-				id: '2.2',
+				id: 'exchange-inflow-volume',
 				label: 'Exchange Inflow Volume',
 				fileType: 'indicator',
 				isAvailable: false,
 			},
 			{
-				id: '2.3',
+				id: 'exchange-outflow-volume',
 				label: 'Exchange Outflow Volume',
 				fileType: 'indicator',
 				isAvailable: false,
@@ -79,7 +79,7 @@ export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 		],
 	},
 	{
-		id: '3',
+		id: 'hodlers',
 		label: 'Hodlers',
 		fileType: 'category',
 		isAvailable: false,
@@ -147,7 +147,7 @@ export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 		],
 	},
 	{
-		id: '4',
+		id: 'profit-loss',
 		label: 'Profit/Loss',
 		fileType: 'category',
 		isAvailable: false,
