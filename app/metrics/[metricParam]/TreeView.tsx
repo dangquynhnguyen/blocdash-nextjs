@@ -205,7 +205,6 @@ export default function TreeView(props: Props) {
 			defaultSelectedItems={constants[1]?.children?.[0]?.id}
 			sx={{
 				flexGrow: 1,
-				maxWidth: 400,
 				overflowY: 'auto',
 			}}
 			slots={{ item: CustomTreeItem }}

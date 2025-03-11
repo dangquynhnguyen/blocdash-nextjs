@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import { CSSObject, Theme, styled } from '@mui/material/styles'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 import { colors } from '@/theme'
 import TreeView from './TreeView'
@@ -16,17 +16,10 @@ type Props = {
 
 export default function Sidebar(props: Props) {
 	const [open, setOpen] = useState(true)
-	const [drawerWidth, setDrawerWidth] = useState(0)
-
-	useEffect(() => {
-		// Set drawer width after component mounts
-		setDrawerWidth(window.screen.width / 5.5)
-	}, [])
 	const drawerMixin = (theme: Theme, isOpen: boolean): CSSObject => ({
 		position: 'relative',
 		height: 'calc(100vh - 5.5rem)',
-		width: isOpen ? drawerWidth : `calc(${theme.spacing(6)} + 1px)`,
-		borderRight: `solid 1px ${colors.primary[800]}`,
+		width: isOpen ? '100%' : `calc(${theme.spacing(6)} + 1px)`,
 		backgroundColor: colors.primary[1000],
 		transition: theme.transitions.create('width', {
 			easing: theme.transitions.easing.sharp,
@@ -36,7 +29,7 @@ export default function Sidebar(props: Props) {
 		}),
 		overflowX: 'hidden',
 		[theme.breakpoints.up('sm')]: {
-			width: isOpen ? drawerWidth : `calc(${theme.spacing(7)} + 1px)`,
+			width: isOpen ? 'auto' : `calc(${theme.spacing(7)} + 1px)`,
 		},
 		'& ::-webkit-scrollbar-thumb': {
 			backgroundColor: colors.primary[750],
@@ -57,7 +50,6 @@ export default function Sidebar(props: Props) {
 	const Drawer = styled(MuiDrawer, {
 		shouldForwardProp: (prop) => prop !== 'open',
 	})(({ theme, open }) => ({
-		width: drawerWidth,
 		flexShrink: 0,
 		whiteSpace: 'nowrap',
 		boxSizing: 'border-box',

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { Box, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { use, useState } from 'react'
 import Sidebar from './Sidebar'
 import { constants } from './TreeView.constants'
@@ -15,10 +15,14 @@ export default function Metrics({ params }: PageProps) {
 	const { metricParam } = use(params)
 	const [selectedMetric, set_selectedMetric] = useState(constants[1]?.children?.[0]?.id)
 	return (
-		<Box m="0" p="0">
-			<Sidebar set_selectedMetric={set_selectedMetric} selectedMetric={selectedMetric} />
-			<Typography>Metrics : {metricParam}</Typography>
-			<Typography>Selected Item : {selectedMetric}</Typography>
-		</Box>
+		<Grid2 container spacing={2}>
+			<Grid2 size={2.5}>
+				<Sidebar set_selectedMetric={set_selectedMetric} selectedMetric={selectedMetric} />
+			</Grid2>
+			<Grid2 size={9.5}>
+				<Typography>Metrics : {metricParam}</Typography>
+				<Typography>Selected Item : {selectedMetric}</Typography>
+			</Grid2>
+		</Grid2>
 	)
 }
