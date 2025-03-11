@@ -15,10 +15,10 @@ export default function Metrics({ params }: PageProps) {
 	const [selectedMetric, set_selectedMetric] = useState(metricParam)
 	return (
 		<Grid2 container spacing={2}>
-			<Grid2 size={2.5}>
+			<Grid2 size={2.25}>
 				<Sidebar set_selectedMetric={set_selectedMetric} selectedMetric={selectedMetric} />
 			</Grid2>
-			<Grid2 size={9.5}>
+			<Grid2 size={9.75}>
 				<Typography>Metrics : {metricParam}</Typography>
 				<Typography>Selected Item : {selectedMetric}</Typography>
 			</Grid2>

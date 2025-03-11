@@ -99,6 +99,9 @@ const StyledTreeItemLabelText = styled(Typography)({
 	color: 'inherit',
 	fontWeight: 400,
 	fontSize: '0.85rem',
+	whiteSpace: 'normal', // Allow text to wrap
+	wordBreak: 'break-word', // Break words if needed
+	overflowWrap: 'break-word', // Ensure long words wrap
 }) as unknown as typeof Typography
 
 interface CustomLabelProps {

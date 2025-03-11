@@ -3,66 +3,78 @@ import { ExtendedTreeItemProps } from './TreeView.type'
 
 export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 	{
-		id: 'address-balances',
-		label: 'Address Balances (ICP)',
+		id: 'address-count',
+		label: 'Address Count Distribution',
 		type: 'category',
 		isAvailable: false,
 		children: [
-			// {
-			//   id: '1.1',
-			//   label: 'Addresses with Balance ≥ 1',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.2',
-			//   label: 'Addresses with Balance ≥ 10',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.3',
-			//   label: 'Addresses with Balance ≥ 100',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.4',
-			//   label: 'Addresses with Balance ≥ 1k',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.5',
-			//   label: 'Addresses with Balance ≥ 10k',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.6',
-			//   label: 'Addresses with Balance ≥ 100k',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
-			// {
-			//   id: '1.7',
-			//   label: 'Addresses with Balance ≥ 1M',
-			//   fileType: 'indicator',
-			//   isAvailable: false,
-			// },
+			{
+				id: 'plankton-count',
+				label: 'Plankton address count : < 1 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'shrimp-count',
+				label: 'Shrimp address count : 1 - 10 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'crab-count',
+				label: 'Crab address count : 10 - 100 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'octopus-count',
+				label: 'Octopus address count : 100 - 500 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'fish-count',
+				label: 'Fish address count : 500 - 1,000 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'dolphin-count',
+				label: 'Dolphin address count : 1,000 - 5,000 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'shark-count',
+				label: 'Shark address count : 5,000 - 10,000 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'whale-count',
+				label: 'Whale address count : 10,000 - 100,000 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
+			{
+				id: 'humpback-count',
+				label: 'Humpback address count : > 100,000 ICP',
+				type: 'indicator',
+				isAvailable: false,
+			},
 		],
 	},
 	{
 		id: 'exchange-activity',
 		label: 'Exchange Activity',
 		type: 'category',
-		isAvailable: true,
+		isAvailable: false,
 		children: [
 			{
 				id: 'exchange-netflow-volume',
 				label: 'Exchange Netflow Volume',
 				type: 'indicator',
-				isAvailable: true,
+				isAvailable: false,
 			},
 			{
 				id: 'exchange-inflow-volume',
