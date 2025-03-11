@@ -27,8 +27,8 @@ import { colors } from '@/theme'
 import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 import { TextIcon } from './TextIcon'
-import { constants } from './TreeView.constants'
-import { MetricType } from './TreeView.type'
+import { constants } from './constants'
+import { MetricType } from './constants/types'
 
 declare module 'react' {
 	interface CSSProperties {
