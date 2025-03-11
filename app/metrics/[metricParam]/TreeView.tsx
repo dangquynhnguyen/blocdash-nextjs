@@ -25,10 +25,10 @@ import * as React from 'react'
 
 import { colors } from '@/theme'
 import { useRouter } from 'next/navigation'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { TextIcon } from './TextIcon'
 import { constants } from './TreeView.constants'
-import { Type } from './TreeView.type'
+import { MetricType } from './TreeView.type'
 
 declare module 'react' {
 	interface CSSProperties {
@@ -37,7 +37,7 @@ declare module 'react' {
 	}
 }
 
-const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: Type }>(
+const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: MetricType }>(
 	({ theme, type: type }) => ({
 		flexDirection: 'row-reverse',
 		borderRadius: theme.spacing(0),
@@ -70,15 +70,15 @@ const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: Type }>(
 			backgroundColor: alpha(colors.logo[200], 0.2),
 		},
 		[`&.Mui-selected`]: {
-			backgroundColor: colors.logo[700],
-			color: theme.palette.primary.contrastText,
+			backgroundColor: type === 'indicator' ? colors.logo[700] : 'transparent',
+			color: type === 'indicator' ? theme.palette.primary.contrastText : 'inherit',
 		},
 		'&.Mui-focused': {
 			backgroundColor: 'transparent !important',
 			color: 'inherit !important',
 		},
 		'&': {
-			cursor: type === 'category' ? 'default' : 'pointer',
+			cursor: type === 'indicator' ? 'pointer' : 'default',
 		},
 	}),
 )
@@ -111,12 +111,14 @@ interface CustomLabelProps {
 	isAvailable: boolean
 }
 
-function getIconFromFileType(type: Type) {
+function getIconFromFileType(type: MetricType) {
 	switch (type) {
-		case 'indicator':
-			return undefined
 		case 'category':
 			return FolderOpenIcon
+		case 'group':
+			return FolderOpenIcon
+		case 'indicator':
+			return undefined
 		default:
 			return undefined
 	}
@@ -133,13 +135,26 @@ type Props = {
 
 export default function TreeView(props: Props) {
 	const router = useRouter()
-	// Add state for expanded items
-	const [expandedItems, setExpandedItems] = useState<string[]>(() => {
-		// Find the category containing the selected metric
-		const parentCategory = constants.find((category) =>
-			category.children?.some((child) => child.id === props.selectedMetric),
-		)
-		return parentCategory ? [parentCategory.id] : []
+	// Find parent category and group for the selected metric
+	const findParentNodes = (metricId: string) => {
+		for (const category of constants) {
+			for (const group of category.children!) {
+				const hasIndicator = group.children!.some((ind) => ind.id === metricId)
+				if (hasIndicator) {
+					return {
+						categoryId: category.id,
+						groupId: group.id,
+					}
+				}
+			}
+		}
+		return null
+	}
+
+	// Initialize expanded items with both category and group of selected metric
+	const [expandedItems, setExpandedItems] = React.useState<string[]>(() => {
+		const parents = findParentNodes(props.selectedMetric)
+		return parents ? [parents.categoryId, parents.groupId] : []
 	})
 
 	const StyledTreeItemRoot = styled(TreeItem2Root)(({ theme }) => ({
@@ -183,18 +198,18 @@ export default function TreeView(props: Props) {
 	const handleSelectedItemsChange = (event: React.SyntheticEvent, itemIds: string | null) => {
 		if (!itemIds) return
 
-		const item = constants.reduce((found: any, category) => {
-			if (found) return found
-			if (category.id === itemIds) return category
-			if (category.children) {
-				return category.children.find((child) => child.id === itemIds) || found
-			}
-			return found
-		}, null)
+		// Find the selected item and its parents
+		for (const category of constants) {
+			for (const group of category.children!) {
+				const indicator = group.children!.find((ind) => ind.id === itemIds)
+				if (indicator) {
+					setExpandedItems([category.id, group.id])
+					props.set_selectedMetric(itemIds)
+					props.set_selectedMetric(itemIds)
 
-		if (item?.type === 'indicator') {
-			props.set_selectedMetric(itemIds)
-			router.replace('/metrics/' + item?.id)
+					return
+				}
+			}
 		}
 	}
 
@@ -270,11 +285,17 @@ export default function TreeView(props: Props) {
 		<RichTreeView
 			items={constants}
 			aria-label="tree-view"
-			defaultExpandedItems={[
-				constants.find((category) =>
-					category.children?.some((child) => child.id === props.selectedMetric),
-				)?.id,
-			].filter((id): id is string => id !== undefined)}
+			defaultExpandedItems={(() => {
+				// Find the parent category and group
+				for (const category of constants) {
+					for (const group of category.children!) {
+						if (group.children!.some((indicator) => indicator.id === props.selectedMetric)) {
+							return [category.id, group.id]
+						}
+					}
+				}
+				return []
+			})()}
 			defaultSelectedItems={props.selectedMetric}
 			sx={{
 				flexGrow: 1,

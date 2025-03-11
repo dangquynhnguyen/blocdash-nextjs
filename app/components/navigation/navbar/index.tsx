@@ -120,7 +120,9 @@ export default function Navbar() {
 						<Link
 							href={
 								'/metrics/' +
-								constants.map((category) => category.children?.[0]?.id).filter(Boolean)[0]
+								constants
+									.map((category) => category.children?.[0]?.children?.[0]?.id)
+									.filter(Boolean)[0]
 							}
 						>
 							<Box sx={linkStyle}>Metrics</Box>
