@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
@@ -24,7 +25,7 @@ import * as React from 'react'
 
 import { colors } from '@/theme'
 import { useRouter } from 'next/navigation'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { TextIcon } from './TextIcon'
 import { constants } from './TreeView.constants'
 import { Type } from './TreeView.type'
@@ -132,6 +133,14 @@ type Props = {
 
 export default function TreeView(props: Props) {
 	const router = useRouter()
+	// Add state for expanded items
+	const [expandedItems, setExpandedItems] = useState<string[]>(() => {
+		// Find the category containing the selected metric
+		const parentCategory = constants.find((category) =>
+			category.children?.some((child) => child.id === props.selectedMetric),
+		)
+		return parentCategory ? [parentCategory.id] : []
+	})
 
 	const StyledTreeItemRoot = styled(TreeItem2Root)(({ theme }) => ({
 		color: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.grey[400],
@@ -261,7 +270,11 @@ export default function TreeView(props: Props) {
 		<RichTreeView
 			items={constants}
 			aria-label="tree-view"
-			defaultExpandedItems={constants.map((item) => item.id)}
+			defaultExpandedItems={[
+				constants.find((category) =>
+					category.children?.some((child) => child.id === props.selectedMetric),
+				)?.id,
+			].filter((id): id is string => id !== undefined)}
 			defaultSelectedItems={props.selectedMetric}
 			sx={{
 				flexGrow: 1,

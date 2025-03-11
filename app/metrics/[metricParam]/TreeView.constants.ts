@@ -3,6 +3,68 @@ import { ExtendedTreeItemProps } from './TreeView.type'
 
 export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 	{
+		id: 'address-supply-distribution',
+		label: 'Address Supply Distribution',
+		type: 'category',
+		isAvailable: true,
+		children: [
+			{
+				id: 'plankton-netPosChange',
+				label: 'Plankton net position change : Address < 1 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'shrimp-netPosChange',
+				label: 'Shrimp net position change : Address 1 - 10 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'crab-netPosChange',
+				label: 'Crab net position change : Address 10 - 100 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'octopus-netPosChange',
+				label: 'Octopus net position change : Address 100 - 500 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'fish-netPosChange',
+				label: 'Fish net position change : Address 500 - 1,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'dolphin-netPosChange',
+				label: 'Dolphin net position change : Address 1,000 - 5,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'shark-netPosChange',
+				label: 'Shark net position change : Address 5,000 - 10,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'whale-netPosChange',
+				label: 'Whale net position change : Address 10,000 - 100,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'humpback-netPosChange',
+				label: 'Humpback net position change : Address > 100,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+		],
+	},
+	{
 		id: 'address-supply-bands',
 		label: 'Address Supply Bands',
 		type: 'category',
