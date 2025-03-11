@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import { Box, Collapse, Typography } from '@mui/material'
@@ -34,41 +35,47 @@ declare module 'react' {
 	}
 }
 
-const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
-	flexDirection: 'row-reverse',
-	borderRadius: theme.spacing(0.7),
-	marginBottom: theme.spacing(0),
-	marginTop: theme.spacing(0),
-	paddingTop: theme.spacing(1),
-	paddingBottom: theme.spacing(1),
-	paddingRight: theme.spacing(2),
-	paddingLeft: theme.spacing(2),
-	[`& .${treeItemClasses.iconContainer}`]: {
-		marginRight: theme.spacing(2),
-	},
-	[`&.Mui-expanded `]: {
-		'&:not(.Mui-focused, .Mui-selected, .Mui-selected.Mui-focused) .labelIcon': {
-			color: colors.logo[700],
+const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: Type }>(
+	({ theme, type: type }) => ({
+		flexDirection: 'row-reverse',
+		borderRadius: theme.spacing(0.7),
+		marginBottom: theme.spacing(0),
+		marginTop: theme.spacing(0),
+		paddingTop: theme.spacing(1),
+		paddingBottom: theme.spacing(1),
+		paddingRight: theme.spacing(2),
+		paddingLeft: theme.spacing(2),
+		[`& .${treeItemClasses.iconContainer}`]: {
+			marginRight: theme.spacing(2),
 		},
-		'&::before': {
-			content: '""',
-			display: 'block',
-			position: 'absolute',
-			left: '1.1rem',
-			top: '2.8rem',
-			height: 'auto',
-			width: '0.075rem',
-			backgroundColor: theme.palette.grey[300],
+		[`&.Mui-expanded `]: {
+			'&:not(.Mui-focused, .Mui-selected, .Mui-selected.Mui-focused) .labelIcon': {
+				color: 'inherit !important',
+			},
+			'&::before': {
+				content: '""',
+				display: 'block',
+				position: 'absolute',
+				left: '1.1rem',
+				top: '2.8rem',
+				height: 'auto',
+				width: '0.075rem',
+				backgroundColor: theme.palette.grey[300],
+			},
 		},
-	},
-	'&:hover': {
-		backgroundColor: alpha(colors.logo[200], 0.2),
-	},
-	[`&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused`]: {
-		backgroundColor: colors.logo[700],
-		color: theme.palette.primary.contrastText,
-	},
-}))
+		'&:hover': {
+			backgroundColor: alpha(colors.logo[200], 0.2),
+		},
+		[`&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused`]: {
+			backgroundColor: colors.logo[700],
+			color: theme.palette.primary.contrastText,
+		},
+
+		'&': {
+			cursor: type === 'category' ? 'default' : 'pointer',
+		},
+	}),
+)
 
 const AnimatedCollapse = animated(Collapse)
 
@@ -95,8 +102,8 @@ interface CustomLabelProps {
 	isAvailable: boolean
 }
 
-function getIconFromFileType(fileType: Type) {
-	switch (fileType) {
+function getIconFromFileType(type: Type) {
+	switch (type) {
 		case 'indicator':
 			return undefined
 		case 'category':
@@ -130,7 +137,50 @@ export default function TreeView(props: Props) {
 		['& .MuiCollapse-root']: {
 			paddingLeft: theme.spacing(3.5) + '!important',
 		},
+
+		// Prevent text selection in the entire TreeView
+		WebkitUserSelect: 'none',
+		MozUserSelect: 'none',
+		msUserSelect: 'none',
+		userSelect: 'none',
+		// Style category and indicator items differently.
+		'& .content[type="category"]': {
+			cursor: 'default',
+			'&:hover': {
+				backgroundColor: 'transparent !important',
+			},
+			'&.Mui-selected': {
+				backgroundColor: 'transparent !important',
+				color: 'inherit !important',
+			},
+			'&.Mui-focused': {
+				backgroundColor: 'transparent !important',
+				color: 'inherit !important',
+			},
+		},
+		'& .content[type="indicator"]': {
+			cursor: 'pointer',
+		},
 	})) as unknown as typeof TreeItem2Root
+
+	// Modify the onSelectedItemsChange handler in the RichTreeView component
+	const handleSelectedItemsChange = (event: React.SyntheticEvent, itemIds: string | null) => {
+		if (!itemIds) return
+
+		const item = constants.reduce((found: any, category) => {
+			if (found) return found
+			if (category.id === itemIds) return category
+			if (category.children) {
+				return category.children.find((child) => child.id === itemIds) || found
+			}
+			return found
+		}, null)
+
+		if (item?.type === 'indicator') {
+			props.set_selectedMetric(itemIds)
+		}
+	}
+
 	function CustomLabel({ icon: Icon, isAvailable, children, ...other }: CustomLabelProps) {
 		return (
 			<TreeItem2Label
@@ -153,6 +203,7 @@ export default function TreeView(props: Props) {
 			</TreeItem2Label>
 		)
 	}
+
 	const CustomTreeItem = React.forwardRef(function CustomTreeItem(
 		props: CustomTreeItemProps,
 		ref: React.Ref<HTMLLIElement>,
@@ -168,11 +219,12 @@ export default function TreeView(props: Props) {
 			publicAPI,
 		} = useTreeItem2({ id, itemId, children, label, disabled, rootRef: ref })
 		const item = publicAPI.getItem(itemId)
-		const icon = getIconFromFileType(item.fileType)
+		const icon = getIconFromFileType(item.type)
 		return (
 			<TreeItem2Provider itemId={itemId}>
 				<StyledTreeItemRoot {...getRootProps(other)}>
 					<CustomTreeItemContent
+						type={item.type}
 						{...getContentProps({
 							className: clsx('content', {
 								'Mui-expanded': status.expanded,
@@ -209,7 +261,7 @@ export default function TreeView(props: Props) {
 			}}
 			slots={{ item: CustomTreeItem }}
 			selectedItems={props.selectedMetric}
-			onSelectedItemsChange={(event, itemId) => props.set_selectedMetric(itemId!)}
+			onSelectedItemsChange={handleSelectedItemsChange}
 		/>
 	)
 }
