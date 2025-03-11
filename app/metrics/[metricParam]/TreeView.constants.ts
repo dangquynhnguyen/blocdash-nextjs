@@ -3,6 +3,68 @@ import { ExtendedTreeItemProps } from './TreeView.type'
 
 export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 	{
+		id: 'address-by-balance',
+		label: 'Address by Balance',
+		type: 'category',
+		isAvailable: true,
+		children: [
+			{
+				id: 'address-nonZeroCount',
+				label: 'Address with Non-Zero Balance',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min1Count',
+				label: 'Address with Balance ≥ 1 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min10Count',
+				label: 'Address with Balance ≥ 10 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min100Count',
+				label: 'Address with Balance ≥ 100 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min500Count',
+				label: 'Address with Balance ≥ 500 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min1kCount',
+				label: 'Address with Balance ≥ 1,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min5kCount',
+				label: 'Address with Balance ≥ 5,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min10kCount',
+				label: 'Address with Balance ≥ 10,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+			{
+				id: 'address-min100kCount',
+				label: 'Address with Balance ≥ 100,000 ICP',
+				type: 'indicator',
+				isAvailable: true,
+			},
+		],
+	},
+	{
 		id: 'address-supply-distribution',
 		label: 'Address Supply Distribution',
 		type: 'category',
@@ -68,7 +130,7 @@ export const constants: TreeViewBaseItem<ExtendedTreeItemProps>[] = [
 		id: 'address-supply-bands',
 		label: 'Address Supply Bands',
 		type: 'category',
-		isAvailable: false,
+		isAvailable: true,
 		children: [
 			{
 				id: 'address-supply-balance-less1',
