@@ -23,6 +23,7 @@ import clsx from 'clsx'
 import * as React from 'react'
 
 import { colors } from '@/theme'
+import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 import { TextIcon } from './TextIcon'
 import { constants } from './TreeView.constants'
@@ -38,7 +39,8 @@ declare module 'react' {
 const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: Type }>(
 	({ theme, type: type }) => ({
 		flexDirection: 'row-reverse',
-		borderRadius: theme.spacing(0.7),
+		borderRadius: theme.spacing(0),
+		borderLeft: type === 'indicator' ? `1px solid ${colors.primary[800]}` : 'none',
 		marginBottom: theme.spacing(0),
 		marginTop: theme.spacing(0),
 		paddingTop: theme.spacing(1),
@@ -66,11 +68,14 @@ const CustomTreeItemContent = styled(TreeItem2Content)<{ type?: Type }>(
 		'&:hover': {
 			backgroundColor: alpha(colors.logo[200], 0.2),
 		},
-		[`&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused`]: {
+		[`&.Mui-selected`]: {
 			backgroundColor: colors.logo[700],
 			color: theme.palette.primary.contrastText,
 		},
-
+		'&.Mui-focused': {
+			backgroundColor: 'transparent !important',
+			color: 'inherit !important',
+		},
 		'&': {
 			cursor: type === 'category' ? 'default' : 'pointer',
 		},
@@ -118,11 +123,13 @@ interface CustomTreeItemProps
 		Omit<React.HTMLAttributes<HTMLLIElement>, 'onFocus'> {}
 
 type Props = {
-	set_selectedMetric: Dispatch<SetStateAction<string | undefined>>
-	selectedMetric: string | undefined
+	set_selectedMetric: Dispatch<SetStateAction<string>>
+	selectedMetric: string
 }
 
 export default function TreeView(props: Props) {
+	const router = useRouter()
+
 	const StyledTreeItemRoot = styled(TreeItem2Root)(({ theme }) => ({
 		color: theme.palette.mode === 'light' ? theme.palette.grey[800] : theme.palette.grey[400],
 		position: 'relative',
@@ -146,9 +153,6 @@ export default function TreeView(props: Props) {
 		// Style category and indicator items differently.
 		'& .content[type="category"]': {
 			cursor: 'default',
-			'&:hover': {
-				backgroundColor: 'transparent !important',
-			},
 			'&.Mui-selected': {
 				backgroundColor: 'transparent !important',
 				color: 'inherit !important',
@@ -178,6 +182,7 @@ export default function TreeView(props: Props) {
 
 		if (item?.type === 'indicator') {
 			props.set_selectedMetric(itemIds)
+			router.replace('/metrics/' + item?.id)
 		}
 	}
 
@@ -254,7 +259,7 @@ export default function TreeView(props: Props) {
 			items={constants}
 			aria-label="tree-view"
 			defaultExpandedItems={constants.map((item) => item.id)}
-			defaultSelectedItems={constants[1]?.children?.[0]?.id}
+			defaultSelectedItems={props.selectedMetric}
 			sx={{
 				flexGrow: 1,
 				overflowY: 'auto',

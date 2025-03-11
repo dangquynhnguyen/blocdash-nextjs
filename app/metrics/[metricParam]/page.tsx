@@ -5,7 +5,6 @@
 import { Grid2, Typography } from '@mui/material'
 import { use, useState } from 'react'
 import Sidebar from './Sidebar'
-import { constants } from './TreeView.constants'
 
 interface PageProps {
 	params: Promise<{ metricParam: string }>
@@ -13,7 +12,7 @@ interface PageProps {
 
 export default function Metrics({ params }: PageProps) {
 	const { metricParam } = use(params)
-	const [selectedMetric, set_selectedMetric] = useState(constants[1]?.children?.[0]?.id)
+	const [selectedMetric, set_selectedMetric] = useState(metricParam)
 	return (
 		<Grid2 container spacing={2}>
 			<Grid2 size={2.5}>

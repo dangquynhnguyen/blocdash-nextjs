@@ -10,8 +10,8 @@ import { colors } from '@/theme'
 import TreeView from './TreeView'
 
 type Props = {
-	set_selectedMetric: Dispatch<SetStateAction<string | undefined>>
-	selectedMetric: string | undefined
+	set_selectedMetric: Dispatch<SetStateAction<string>>
+	selectedMetric: string
 }
 
 export default function Sidebar(props: Props) {

@@ -3,6 +3,7 @@
 
 import logo from '@/app/assets/logo.png'
 import { useMeQuery } from '@/app/generated/graphql'
+import { constants } from '@/app/metrics/[metricParam]/TreeView.constants'
 import { colors } from '@/theme'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'
@@ -116,7 +117,12 @@ export default function Navbar() {
 						<Image className="avatar" alt={'logo'} src={logo} style={imgStyle} />
 					</Link>
 					<Box sx={bloxLinksStyle}>
-						<Link href={'/metrics'}>
+						<Link
+							href={
+								'/metrics/' +
+								constants.map((category) => category.children?.[0]?.id).filter(Boolean)
+							}
+						>
 							<Box sx={linkStyle}>Metrics</Box>
 						</Link>
 						<Link href={'/tokens'}>
