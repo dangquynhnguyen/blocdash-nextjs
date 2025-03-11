@@ -7,6 +7,64 @@ export const addresses: Category = {
 	isAvailable: true,
 	children: [
 		{
+			id: 'address-activity',
+			label: 'Address Activity',
+			type: 'group',
+			isAvailable: true,
+			children: [
+				{
+					id: 'active-addresses-count',
+					label: 'Active Addresses',
+					type: 'indicator',
+					isAvailable: true,
+				},
+				{
+					id: 'sending-addresses-count',
+					label: 'Sending Addresses',
+					type: 'indicator',
+					isAvailable: true,
+				},
+				{
+					id: 'receiving-addresses-count',
+					label: 'Receiving Addresses',
+					type: 'indicator',
+					isAvailable: true,
+				},
+				{
+					id: 'Active-address-momentum',
+					label: 'Active Address Momentum',
+					type: 'indicator',
+					isAvailable: true,
+				},
+			],
+		},
+		{
+			id: 'address-growth',
+			label: 'Address Growth',
+			type: 'group',
+			isAvailable: true,
+			children: [
+				{
+					id: 'new-addresses-count',
+					label: 'New Addresses',
+					type: 'indicator',
+					isAvailable: true,
+				},
+				{
+					id: 'total-addresses-count',
+					label: 'Total Addresses',
+					type: 'indicator',
+					isAvailable: true,
+				},
+				{
+					id: 'new-address-momentum',
+					label: 'New Address Momentum',
+					type: 'indicator',
+					isAvailable: true,
+				},
+			],
+		},
+		{
 			id: 'address-by-balance',
 			label: 'Address by Balance',
 			type: 'group',
