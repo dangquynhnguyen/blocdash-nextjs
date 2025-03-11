@@ -205,7 +205,7 @@ export default function TreeView(props: Props) {
 				if (indicator) {
 					setExpandedItems([category.id, group.id])
 					props.set_selectedMetric(itemIds)
-					props.set_selectedMetric(itemIds)
+					router.replace('/metrics/' + indicator.id)
 
 					return
 				}
