@@ -14,8 +14,8 @@ export const CoinButton = styled(Button)<{ selected: boolean }>(({ theme, select
 		borderBottom: selected ? `3px solid ${colors.logo[700]}` : `3px solid ${colors.logo[200]}`,
 	},
 	'& img': {
-		width: '1.3rem',
-		height: '1.3rem',
+		width: '1.2rem',
+		height: '1.2rem',
 		marginRight: theme.spacing(1),
 	},
 	display: 'flex',
