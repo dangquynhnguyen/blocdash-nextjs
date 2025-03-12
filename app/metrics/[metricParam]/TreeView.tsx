@@ -109,6 +109,25 @@ interface CustomLabelProps {
 	children: React.ReactNode
 	icon?: React.ElementType
 	isAvailable: boolean
+	type: MetricType
+	itemId: string
+}
+
+// Add a helper function to count indicators
+const getIndicatorCount = (itemId: string): number => {
+	const category = constants.find((c) => c.id === itemId)
+	if (category) {
+		return category.children!.reduce((total, group) => total + group.children!.length, 0)
+	}
+
+	// For groups, find their parent category and then count indicators in this group
+	for (const category of constants) {
+		const group = category.children!.find((g) => g.id === itemId)
+		if (group) {
+			return group.children!.length
+		}
+	}
+	return 0
 }
 
 function getIconFromFileType(type: MetricType) {
@@ -213,25 +232,68 @@ export default function TreeView(props: Props) {
 		}
 	}
 
-	function CustomLabel({ icon: Icon, isAvailable, children, ...other }: CustomLabelProps) {
+	function CustomLabel({
+		icon: Icon,
+		isAvailable,
+		children,
+		type,
+		itemId,
+		...other
+	}: CustomLabelProps) {
+		const count = type === 'category' ? getIndicatorCount(itemId) : 0
+
 		return (
 			<TreeItem2Label
 				{...other}
 				sx={{
 					display: 'flex',
 					alignItems: 'center',
+					width: '100%',
+					position: 'relative',
 				}}
 			>
-				{Icon && (
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						width: '100%',
+						pr: '3rem',
+					}}
+				>
+					{Icon && (
+						<Box
+							component={Icon}
+							className="labelIcon"
+							color="inherit"
+							sx={{ mr: 1, fontSize: '1.2rem' }}
+						/>
+					)}
+					<StyledTreeItemLabelText variant="body2">{children}</StyledTreeItemLabelText>
+					{!isAvailable && <TextIcon color={alpha(colors.primary[0], 0.3)} text="Soon" />}
+				</Box>
+				{count > 0 && (
 					<Box
-						component={Icon}
-						className="labelIcon"
-						color="inherit"
-						sx={{ mr: 1, fontSize: '1.2rem' }}
-					/>
+						sx={{
+							position: 'absolute',
+							right: '0',
+							display: 'flex',
+							alignItems: 'center',
+							bgcolor: colors.primary[900],
+							px: 0.5,
+							borderRadius: 1,
+						}}
+					>
+						<Typography
+							variant="caption"
+							sx={{
+								color: colors.primary[0],
+								fontSize: '0.7rem',
+							}}
+						>
+							{count}
+						</Typography>
+					</Box>
 				)}
-				<StyledTreeItemLabelText variant="body2">{children}</StyledTreeItemLabelText>
-				{!isAvailable && <TextIcon color={alpha(colors.primary[0], 0.3)} text="Soon" />}
 			</TreeItem2Label>
 		)
 	}
@@ -273,6 +335,8 @@ export default function TreeView(props: Props) {
 							{...getLabelProps({
 								icon,
 								isAvailable: item.isAvailable,
+								type: item.type,
+								itemId: itemId,
 							})}
 						/>
 					</CustomTreeItemContent>
