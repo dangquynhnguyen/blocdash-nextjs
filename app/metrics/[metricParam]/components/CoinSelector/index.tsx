@@ -1,19 +1,9 @@
 import { colors } from '@/theme'
-import { alpha, Box, Button, styled } from '@mui/material'
+import { Box } from '@mui/material'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { CoinButton } from '../CoinButton'
 import { coins, getDefaultCoin } from './constants'
-
-const CoinButton = styled(Button)<{ selected: boolean }>(({ theme, selected }) => ({
-	color: selected ? colors.logo[100] : colors.primary[0],
-	backgroundColor: selected ? colors.logo[700] : 'transparent',
-	borderRadius: theme.spacing(1),
-	padding: theme.spacing(1, 2),
-	marginRight: theme.spacing(1),
-	textTransform: 'none',
-	'&:hover': {
-		backgroundColor: selected ? colors.logo[700] : alpha(colors.logo[200], 0.1),
-	},
-}))
 
 export default function CoinSelector() {
 	const router = useRouter()
@@ -31,7 +21,7 @@ export default function CoinSelector() {
 			sx={{
 				display: 'flex',
 				alignItems: 'center',
-				py: 1,
+				pt: 1,
 				px: 2,
 				borderBottom: `1px solid ${colors.primary[900]}`,
 			}}
@@ -42,6 +32,7 @@ export default function CoinSelector() {
 					selected={coin.id === activeCoin}
 					onClick={() => handleCoinChange(coin.id)}
 				>
+					<Image src={coin.icon} alt={coin.label} width={20} height={20} />
 					{coin.id}
 				</CoinButton>
 			))}

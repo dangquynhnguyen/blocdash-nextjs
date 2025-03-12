@@ -19,7 +19,7 @@ export default function Metrics({ params }: PageProps) {
 				<Grid2 size={2.25}>
 					<Sidebar set_selectedMetric={set_selectedMetric} selectedMetric={selectedMetric} />
 				</Grid2>
-				<Grid2 size={9.75}>
+				<Grid2 size={9.75} sx={{ mt: '1rem' }}>
 					<Typography>Metrics : {metricParam}</Typography>
 					<Typography>Selected Item : {selectedMetric}</Typography>
 				</Grid2>

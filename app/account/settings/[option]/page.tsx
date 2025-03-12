@@ -18,10 +18,7 @@ export default function AccountSettings({ params }: any) {
 				<Grid2 size={3}>
 					<Sidebar />
 				</Grid2>
-				<Grid2
-					size={9}
-					// sx={{ border: `1px solid ${colors.primary[900]}`, borderRadius: 3, height: '50vh' }}
-				>
+				<Grid2 size={9}>
 					<Options params={params} />
 				</Grid2>
 			</Grid2>
