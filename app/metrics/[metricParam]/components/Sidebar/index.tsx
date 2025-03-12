@@ -7,7 +7,7 @@ import { CSSObject, Theme, styled } from '@mui/material/styles'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 import { colors } from '@/theme'
-import TreeView from './TreeView'
+import TreeView from '../TreeView'
 
 type Props = {
 	set_selectedMetric: Dispatch<SetStateAction<string>>
@@ -18,7 +18,7 @@ export default function Sidebar(props: Props) {
 	const [open, setOpen] = useState(true)
 	const drawerMixin = (theme: Theme, isOpen: boolean): CSSObject => ({
 		position: 'relative',
-		height: 'calc(100vh - 5.5rem)',
+		height: 'calc(100vh - 9.3rem)',
 		width: isOpen ? '100%' : `calc(${theme.spacing(6)} + 1px)`,
 		backgroundColor: colors.primary[1000],
 		transition: theme.transitions.create('width', {

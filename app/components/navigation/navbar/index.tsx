@@ -3,7 +3,7 @@
 
 import logo from '@/app/assets/logo.png'
 import { useMeQuery } from '@/app/generated/graphql'
-import { constants } from '@/app/metrics/[metricParam]/constants'
+import { constants } from '@/app/metrics/[metricParam]/components/TreeView/constants'
 import { colors } from '@/theme'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, IconButton, InputBase } from '@mui/material'

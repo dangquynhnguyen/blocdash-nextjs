@@ -25,11 +25,11 @@ import * as React from 'react'
 
 import { colors } from '@/theme'
 import DevicesFoldOutlinedIcon from '@mui/icons-material/DevicesFoldOutlined'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
-import { TextIcon } from './TextIcon'
+import { TextIcon } from '../TextIcon'
 import { constants } from './constants'
-import { MetricType } from './constants/types'
+import { MetricType } from './types'
 
 declare module 'react' {
 	interface CSSProperties {
@@ -155,6 +155,8 @@ type Props = {
 
 export default function TreeView(props: Props) {
 	const router = useRouter()
+	const searchParams = useSearchParams()
+
 	// Find parent category and group for the selected metric
 	const findParentNodes = (metricId: string) => {
 		for (const category of constants) {
@@ -224,9 +226,13 @@ export default function TreeView(props: Props) {
 				const indicator = group.children!.find((ind) => ind.id === itemIds)
 				if (indicator) {
 					setExpandedItems([category.id, group.id])
-					props.set_selectedMetric(itemIds)
-					router.replace('/metrics/' + indicator.id)
 
+					// Create new URLSearchParams to preserve existing parameters
+					const params = new URLSearchParams(searchParams.toString())
+
+					// Update the URL while preserving the crypto parameter
+					props.set_selectedMetric(itemIds)
+					router.replace(`/metrics/${indicator.id}?${params.toString()}`)
 					return
 				}
 			}

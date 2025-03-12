@@ -1,4 +1,4 @@
-import { Category } from './types'
+import { Category } from '../types'
 
 export const addresses: Category = {
 	id: 'addresses',
