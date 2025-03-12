@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
-import Authentication from './Authentication'
+import { authentication, billing, general, plan } from '../../constants'
+import Authentication from './Auth'
 import Billing from './Billing'
-import { authentication, billing, general, plan } from './constants'
 import General from './General'
 import Plan from './Plan'
 
@@ -12,7 +12,7 @@ interface SettingsOptionProps {
 	}
 }
 
-export default function Option({ params }: SettingsOptionProps) {
+export default function Options({ params }: SettingsOptionProps) {
 	const [option, setOption] = useState<string>('')
 	useEffect(() => {
 		const resolveParams = async () => {

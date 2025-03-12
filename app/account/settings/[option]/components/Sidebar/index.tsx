@@ -1,6 +1,6 @@
 import MenuItem from '@/app/components/navigation/navbar/MenuItem'
 import { Box } from '@mui/material'
-import { authentication, billing, general, plan } from './constants'
+import { authentication, billing, general, plan } from '../../constants'
 
 export default function Sidebar() {
 	return (

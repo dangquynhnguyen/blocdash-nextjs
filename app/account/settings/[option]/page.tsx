@@ -3,8 +3,8 @@
 
 import { colors } from '@/theme'
 import { Container, Grid2, Typography } from '@mui/material'
-import Option from './Option'
-import Sidebar from './Sidebar'
+import Options from './components/Options'
+import Sidebar from './components/Sidebar'
 
 export default function AccountSettings({ params }: any) {
 	return (
@@ -22,7 +22,7 @@ export default function AccountSettings({ params }: any) {
 					size={9}
 					// sx={{ border: `1px solid ${colors.primary[900]}`, borderRadius: 3, height: '50vh' }}
 				>
-					<Option params={params} />
+					<Options params={params} />
 				</Grid2>
 			</Grid2>
 		</Container>
