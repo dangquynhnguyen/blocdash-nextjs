@@ -24,6 +24,7 @@ import clsx from 'clsx'
 import * as React from 'react'
 
 import { colors } from '@/theme'
+import DevicesFoldOutlinedIcon from '@mui/icons-material/DevicesFoldOutlined'
 import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 import { TextIcon } from './TextIcon'
@@ -135,7 +136,7 @@ function getIconFromFileType(type: MetricType) {
 		case 'category':
 			return FolderOpenIcon
 		case 'group':
-			return FolderOpenIcon
+			return DevicesFoldOutlinedIcon
 		case 'indicator':
 			return undefined
 		default:
