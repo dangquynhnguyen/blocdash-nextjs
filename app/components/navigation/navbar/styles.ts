@@ -1,4 +1,5 @@
 import { colors } from '@/theme'
+import { alpha } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { styled, SxProps, Theme } from '@mui/material/styles'
 import { CSSProperties } from 'react'
@@ -60,6 +61,7 @@ export const styles = {
 		fontWeight: 600,
 		padding: '0.6rem 1rem',
 		borderRadius: '8px',
+		border: `2px solid ${colors.logo[700]}`,
 		margin: '0 0.25rem',
 		...(isLogin
 			? {
@@ -67,15 +69,16 @@ export const styles = {
 					color: colors.primary[1000],
 					'&:hover': {
 						backgroundColor: colors.logo[800],
+						borderColor: colors.logo[800],
 					},
 				}
 			: {
 					backgroundColor: 'transparent',
 					color: colors.logo[700],
-					border: `2px solid ${colors.logo[700]}`,
 					'&:hover': {
 						borderColor: colors.logo[800],
 						color: colors.logo[800],
+						backgroundColor: alpha(colors.logo[200], 0.1),
 					},
 				}),
 	}),
