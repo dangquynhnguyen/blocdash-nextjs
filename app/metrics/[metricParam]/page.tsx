@@ -18,7 +18,13 @@ export default function Metrics({ params }: PageProps) {
 		<>
 			<CoinSelector />
 			<Grid2 container spacing={2}>
-				<Grid2 size={open ? 2.25 : 0.5}>
+				<Grid2
+					size={open ? 2.25 : 'auto'}
+					sx={{
+						width: open ? 'auto' : '4rem',
+						transition: 'width 0.2s ease-in-out',
+					}}
+				>
 					<Sidebar
 						open={open}
 						setOpen={setOpen}
@@ -26,7 +32,14 @@ export default function Metrics({ params }: PageProps) {
 						selectedMetric={selectedMetric}
 					/>
 				</Grid2>
-				<Grid2 size={open ? 9.75 : 11.25} sx={{ mt: '1rem' }}>
+				<Grid2
+					size={open ? 9.75 : 'auto'}
+					sx={{
+						width: open ? 'auto' : 'calc(100vh - 4rem)',
+						mt: '1rem',
+						transition: 'width 0.2s ease-in-out',
+					}}
+				>
 					<Typography>Metrics : {metricParam}</Typography>
 					<Typography>Selected Item : {selectedMetric}</Typography>
 				</Grid2>

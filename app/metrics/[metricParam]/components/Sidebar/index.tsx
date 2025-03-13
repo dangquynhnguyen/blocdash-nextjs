@@ -23,10 +23,8 @@ export default function Sidebar(props: Props) {
 		width: isOpen ? '100%' : `calc(${theme.spacing(6)} + 1px)`,
 		backgroundColor: colors.primary[1000],
 		transition: theme.transitions.create('width', {
-			easing: theme.transitions.easing.sharp,
-			duration: isOpen
-				? theme.transitions.duration.enteringScreen
-				: theme.transitions.duration.leavingScreen,
+			easing: theme.transitions.easing.easeInOut, // Changed to smoother easing
+			duration: 200, // Set fixed duration in milliseconds
 		}),
 		overflowX: 'hidden',
 		[theme.breakpoints.up('sm')]: {
