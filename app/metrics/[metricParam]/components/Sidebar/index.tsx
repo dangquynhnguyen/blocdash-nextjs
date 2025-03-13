@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import { CSSObject, Theme, styled } from '@mui/material/styles'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 import { colors } from '@/theme'
 import TreeView from '../TreeView'
@@ -12,10 +12,11 @@ import TreeView from '../TreeView'
 type Props = {
 	set_selectedMetric: Dispatch<SetStateAction<string>>
 	selectedMetric: string
+	open: boolean
+	setOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export default function Sidebar(props: Props) {
-	const [open, setOpen] = useState(true)
 	const drawerMixin = (theme: Theme, isOpen: boolean): CSSObject => ({
 		position: 'relative',
 		height: 'calc(100vh - 9.3rem)',
@@ -59,15 +60,15 @@ export default function Sidebar(props: Props) {
 		},
 	}))
 	function handleDrawer() {
-		setOpen((prevOpen) => !prevOpen)
+		props.setOpen((prevOpen) => !prevOpen)
 	}
 	return (
-		<Drawer variant="permanent" open={open}>
+		<Drawer variant="permanent" open={props.open}>
 			<DrawerHeader>
 				<IconButton onClick={handleDrawer}>{<MenuIcon />}</IconButton>
 			</DrawerHeader>
 			<Divider />
-			{open && (
+			{props.open && (
 				<TreeView
 					set_selectedMetric={props.set_selectedMetric}
 					selectedMetric={props.selectedMetric}
