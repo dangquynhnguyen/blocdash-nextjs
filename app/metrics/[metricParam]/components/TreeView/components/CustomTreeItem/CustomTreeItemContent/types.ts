@@ -1,4 +1,4 @@
-import { MetricType } from '../../../constants/types'
+import { MetricType } from '../../../constants/enums'
 
 export interface CustomTreeItemContentProps {
 	type?: MetricType

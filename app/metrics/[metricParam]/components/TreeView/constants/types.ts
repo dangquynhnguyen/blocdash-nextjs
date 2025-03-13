@@ -1,4 +1,5 @@
-export type MetricType = 'category' | 'group' | 'indicator'
+import { Plan } from '@/app/enums'
+import { MetricType } from './enums'
 
 export interface BaseMetricItem {
 	id: string
@@ -8,17 +9,17 @@ export interface BaseMetricItem {
 }
 
 export interface Indicator extends BaseMetricItem {
-	type: 'indicator'
+	type: MetricType.INDICATOR
+	plan: Plan
 	description?: string
-	unit?: string
 }
 
 export interface Group extends BaseMetricItem {
-	type: 'group'
+	type: MetricType.GROUP
 	children: Indicator[]
 }
 
 export interface Category extends BaseMetricItem {
-	type: 'category'
+	type: MetricType.CATEGORY
 	children: Group[]
 }

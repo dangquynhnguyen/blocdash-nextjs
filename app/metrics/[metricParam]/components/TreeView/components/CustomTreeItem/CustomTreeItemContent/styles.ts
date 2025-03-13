@@ -2,7 +2,7 @@ import { colors } from '@/theme'
 import { Theme } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { treeItemClasses } from '@mui/x-tree-view/TreeItem'
-import { MetricType } from '../../../constants/types'
+import { MetricType } from '../../../constants/enums'
 
 export const getBaseStyles = (theme: Theme, type?: MetricType) => ({
 	flexDirection: 'row-reverse',

@@ -1,15 +1,15 @@
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 
 import DevicesFoldOutlinedIcon from '@mui/icons-material/DevicesFoldOutlined'
-import { MetricType } from '../constants/types'
+import { MetricType } from '../constants/enums'
 
 export function getIconFromFileType(type: MetricType) {
 	switch (type) {
-		case 'category':
+		case MetricType.CATEGORY:
 			return FolderOpenIcon
-		case 'group':
+		case MetricType.GROUP:
 			return DevicesFoldOutlinedIcon
-		case 'indicator':
+		case MetricType.INDICATOR:
 			return undefined
 		default:
 			return undefined
