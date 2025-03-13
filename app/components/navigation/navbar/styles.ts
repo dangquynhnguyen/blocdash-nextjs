@@ -1,5 +1,4 @@
 import { colors } from '@/theme'
-import { alpha } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { styled, SxProps, Theme } from '@mui/material/styles'
 import { CSSProperties } from 'react'
@@ -49,38 +48,13 @@ export const styles = {
 	navLink: (isActive: boolean): SxProps<Theme> => ({
 		fontSize: '0.95rem',
 		fontWeight: 'bold',
-		padding: '2rem 1rem',
-		color: isActive ? colors.primary[0] : colors.primary[800],
+		padding: '0.6rem 1.25rem',
+		color: isActive ? colors.primary[1000] : colors.primary[0],
+		borderRadius: 5,
+		backgroundColor: isActive ? colors.logo[700] : 'transparent',
 		'&:hover': {
-			color: colors.primary[300],
+			backgroundColor: isActive ? colors.logo[700] : colors.logo[100],
 		},
-	}),
-
-	authButton: (isLogin: boolean): SxProps<Theme> => ({
-		fontSize: '0.9rem',
-		fontWeight: 600,
-		padding: '0.6rem 1rem',
-		borderRadius: '8px',
-		border: `2px solid ${colors.logo[700]}`,
-		margin: '0 0.25rem',
-		...(isLogin
-			? {
-					backgroundColor: colors.logo[700],
-					color: colors.primary[1000],
-					'&:hover': {
-						backgroundColor: colors.logo[800],
-						borderColor: colors.logo[800],
-					},
-				}
-			: {
-					backgroundColor: 'transparent',
-					color: colors.logo[700],
-					'&:hover': {
-						borderColor: colors.logo[800],
-						color: colors.logo[800],
-						backgroundColor: alpha(colors.logo[200], 0.1),
-					},
-				}),
 	}),
 
 	container: {
