@@ -13,7 +13,7 @@ type Props = {
 	set_selectedMetric: Dispatch<SetStateAction<string>>
 	selectedMetric: string
 	open: boolean
-	setOpen: Dispatch<SetStateAction<boolean>>
+	set_Open: Dispatch<SetStateAction<boolean>>
 }
 
 export default function Sidebar(props: Props) {
@@ -58,7 +58,7 @@ export default function Sidebar(props: Props) {
 		},
 	}))
 	function handleDrawer() {
-		props.setOpen((prevOpen) => !prevOpen)
+		props.set_Open((prevOpen) => !prevOpen)
 	}
 	return (
 		<Drawer variant="permanent" open={props.open}>
