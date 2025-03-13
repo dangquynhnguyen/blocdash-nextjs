@@ -1,24 +1,6 @@
-export type MetricType = 'category' | 'group' | 'indicator'
+import { Dispatch, SetStateAction } from 'react'
 
-export interface BaseMetricItem {
-	id: string
-	label: string
-	type: MetricType
-	isAvailable: boolean
-}
-
-export interface Indicator extends BaseMetricItem {
-	type: 'indicator'
-	description?: string
-	unit?: string
-}
-
-export interface Group extends BaseMetricItem {
-	type: 'group'
-	children: Indicator[]
-}
-
-export interface Category extends BaseMetricItem {
-	type: 'category'
-	children: Group[]
+export type TreeViewProps = {
+	set_selectedMetric: Dispatch<SetStateAction<string>>
+	selectedMetric: string
 }
