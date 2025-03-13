@@ -13,8 +13,8 @@ import Menu from '@mui/material/Menu'
 import Tooltip from '@mui/material/Tooltip'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
-import SubmitButton from '../../styledMui/SubmitButton'
-import MenuItem from './MenuItem'
+import SubmitButton from '../../../styledMui/SubmitButton'
+import MenuItem from '../MenuItem'
 
 interface AccountMenuProps {
 	meQuery: MeQuery | undefined
