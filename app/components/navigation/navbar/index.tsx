@@ -12,10 +12,12 @@ import { styled, SxProps, Theme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { CSSProperties, ReactNode, useEffect, useState } from 'react'
 import AccountMenu from './AcountMenu'
 
 export default function Navbar() {
+	const pathname = usePathname()
 	const navStyle: CSSProperties = {
 		display: 'block',
 		backgroundColor: colors.primary[1000],
@@ -30,28 +32,39 @@ export default function Navbar() {
 		width: 'fit-content',
 		padding: '0 1.5rem 0 0.5rem',
 	}
-	const bloxLinksStyle: SxProps<Theme> | undefined = {
+	const blocLinksStyle: SxProps<Theme> | undefined = {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'center', // Add this
+		flex: 1, // Add this to take remaining space
 		margin: '0',
 		'&:hover': {
 			color: colors.primary[800],
 		},
 	}
-	const linkStyle: SxProps<Theme> | undefined = {
+	const linkStyle = (href: string): SxProps<Theme> => ({
 		fontSize: '0.95rem',
 		fontWeight: 'bold',
 		padding: '2rem 1rem',
+		color: pathname.startsWith(href) ? colors.primary[0] : colors.primary[800],
 		'&:hover': {
-			color: colors.primary[0],
+			color: colors.primary[300],
 		},
-	}
+	})
 	const searchBarStyle: CSSProperties = {
 		display: 'flex',
 		marginLeft: '1.5rem',
 		marginRight: '1.5rem',
 		borderRadius: '20px',
 		backgroundColor: colors.primary[900],
+	}
+	const loginStyle: SxProps<Theme> = {
+		fontSize: '0.95rem',
+		fontWeight: 'bold',
+		padding: '2rem 1rem',
+		'&:hover': {
+			color: colors.primary[0],
+		},
 	}
 	const [drawerWidth, setDrawerWidth] = useState(0)
 	interface AppBarProps extends MuiAppBarProps {
@@ -84,10 +97,10 @@ export default function Navbar() {
 		user = (
 			<>
 				<Link href={'/login'}>
-					<Box sx={linkStyle}>Login</Box>
+					<Box sx={loginStyle}>Login</Box>
 				</Link>
 				<Link href={'/register'}>
-					<Box sx={linkStyle}>Register</Box>
+					<Box sx={loginStyle}>Register</Box>
 				</Link>
 			</>
 		)
@@ -116,7 +129,14 @@ export default function Navbar() {
 					<Link href={'/'}>
 						<Image className="avatar" alt={'logo'} src={logo} style={imgStyle} />
 					</Link>
-					<Box sx={bloxLinksStyle}>
+					{/* SEARCH BAR */}
+					<Box style={searchBarStyle}>
+						<InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search" />
+						<IconButton type="button" sx={{ p: 1 }}>
+							<SearchIcon />
+						</IconButton>
+					</Box>
+					<Box sx={blocLinksStyle}>
 						<Link
 							href={
 								'/metrics/' +
@@ -125,22 +145,15 @@ export default function Navbar() {
 									.filter(Boolean)[0]
 							}
 						>
-							<Box sx={linkStyle}>Metrics</Box>
+							<Box sx={linkStyle('/metrics')}>Metrics</Box>
 						</Link>
 						<Link href={'/tokens'}>
-							<Box sx={linkStyle}>Tokens</Box>
+							<Box sx={linkStyle('/tokens')}>Tokens</Box>
 						</Link>
 					</Box>
 				</Box>
-				{/* SEARCH BAR */}
-				<Box style={searchBarStyle}>
-					<InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-					<IconButton type="button" sx={{ p: 1 }}>
-						<SearchIcon />
-					</IconButton>
-				</Box>
 				{/* LOGIN/REGISTER/LOGOUT */}
-				<Box mr="2rem" sx={bloxLinksStyle}>
+				<Box mr="2rem" sx={blocLinksStyle}>
 					{user}
 				</Box>
 			</Toolbar>
