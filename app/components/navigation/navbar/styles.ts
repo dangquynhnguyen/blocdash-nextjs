@@ -57,6 +57,26 @@ export const styles = {
 		},
 	}),
 
+	loginButton: (): SxProps<Theme> => ({
+		display: 'flex',
+		alignItems: 'center',
+		gap: 1,
+		fontSize: '0.95rem',
+		fontWeight: 'bold',
+		padding: '0.5rem 1rem',
+		color: colors.logo[700],
+		border: `1px solid ${colors.logo[300]}`,
+		borderRadius: 5,
+		'& svg': {
+			fontSize: '1.2rem',
+			fontWeight: 'bold',
+		},
+		'&:hover': {
+			borderColor: colors.logo[800],
+			color: colors.logo[800],
+		},
+	}),
+
 	container: {
 		display: 'flex',
 		alignItems: 'center',
