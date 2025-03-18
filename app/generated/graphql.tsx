@@ -78,12 +78,28 @@ export type MutationRegisterArgs = {
 export type Query = {
 	__typename?: 'Query'
 	me?: Maybe<User>
+	uniqueWalletsHourly?: Maybe<Array<UniqueWalletsHourly>>
 }
 
 export type RegisterInput = {
 	email: Scalars['String']['input']
 	password: Scalars['String']['input']
 	username: Scalars['String']['input']
+}
+
+export type UniqueWalletsHourly = {
+	__typename?: 'UniqueWalletsHourly'
+	crab_count: Scalars['Int']['output']
+	dolphin_count: Scalars['Int']['output']
+	fish_count: Scalars['Int']['output']
+	hour: Scalars['ID']['output']
+	humpback_count: Scalars['Int']['output']
+	octopus_count: Scalars['Int']['output']
+	plankton_count: Scalars['Int']['output']
+	shark_count: Scalars['Int']['output']
+	shrimp_count: Scalars['Int']['output']
+	total_wallets: Scalars['Int']['output']
+	whale_count: Scalars['Int']['output']
 }
 
 export type User = {
@@ -189,6 +205,26 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>
 export type MeQuery = {
 	__typename?: 'Query'
 	me?: { __typename?: 'User'; id: string; username: string; email: string } | null
+}
+
+export type UniqueWalletsHourlyQueryVariables = Exact<{ [key: string]: never }>
+
+export type UniqueWalletsHourlyQuery = {
+	__typename?: 'Query'
+	uniqueWalletsHourly?: Array<{
+		__typename?: 'UniqueWalletsHourly'
+		hour: string
+		total_wallets: number
+		plankton_count: number
+		shrimp_count: number
+		crab_count: number
+		octopus_count: number
+		fish_count: number
+		dolphin_count: number
+		shark_count: number
+		whale_count: number
+		humpback_count: number
+	}> | null
 }
 
 export const MutationStatusesFragmentDoc = gql`
@@ -476,3 +512,83 @@ export type MeQueryHookResult = ReturnType<typeof useMeQuery>
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>
 export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>
+export const UniqueWalletsHourlyDocument = gql`
+	query UniqueWalletsHourly {
+		uniqueWalletsHourly {
+			hour
+			total_wallets
+			plankton_count
+			shrimp_count
+			crab_count
+			octopus_count
+			fish_count
+			dolphin_count
+			shark_count
+			whale_count
+			humpback_count
+		}
+	}
+`
+
+/**
+ * __useUniqueWalletsHourlyQuery__
+ *
+ * To run a query within a React component, call `useUniqueWalletsHourlyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUniqueWalletsHourlyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUniqueWalletsHourlyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUniqueWalletsHourlyQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		UniqueWalletsHourlyQuery,
+		UniqueWalletsHourlyQueryVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions }
+	return Apollo.useQuery<UniqueWalletsHourlyQuery, UniqueWalletsHourlyQueryVariables>(
+		UniqueWalletsHourlyDocument,
+		options,
+	)
+}
+export function useUniqueWalletsHourlyLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		UniqueWalletsHourlyQuery,
+		UniqueWalletsHourlyQueryVariables
+	>,
+) {
+	const options = { ...defaultOptions, ...baseOptions }
+	return Apollo.useLazyQuery<UniqueWalletsHourlyQuery, UniqueWalletsHourlyQueryVariables>(
+		UniqueWalletsHourlyDocument,
+		options,
+	)
+}
+export function useUniqueWalletsHourlySuspenseQuery(
+	baseOptions?:
+		| Apollo.SkipToken
+		| Apollo.SuspenseQueryHookOptions<UniqueWalletsHourlyQuery, UniqueWalletsHourlyQueryVariables>,
+) {
+	const options =
+		baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+	return Apollo.useSuspenseQuery<UniqueWalletsHourlyQuery, UniqueWalletsHourlyQueryVariables>(
+		UniqueWalletsHourlyDocument,
+		options,
+	)
+}
+export type UniqueWalletsHourlyQueryHookResult = ReturnType<typeof useUniqueWalletsHourlyQuery>
+export type UniqueWalletsHourlyLazyQueryHookResult = ReturnType<
+	typeof useUniqueWalletsHourlyLazyQuery
+>
+export type UniqueWalletsHourlySuspenseQueryHookResult = ReturnType<
+	typeof useUniqueWalletsHourlySuspenseQuery
+>
+export type UniqueWalletsHourlyQueryResult = Apollo.QueryResult<
+	UniqueWalletsHourlyQuery,
+	UniqueWalletsHourlyQueryVariables
+>

@@ -1,0 +1,15 @@
+query UniqueWalletsHourly {
+	uniqueWalletsHourly {
+		hour
+		total_wallets
+		plankton_count
+		shrimp_count
+		crab_count
+		octopus_count
+		fish_count
+		dolphin_count
+		shark_count
+		whale_count
+		humpback_count
+	}
+}

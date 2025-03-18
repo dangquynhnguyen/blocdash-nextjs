@@ -1,9 +1,10 @@
 'use client'
 
 import { Grid2, Typography } from '@mui/material'
-import { useSearchParams } from 'next/navigation'
-import { use, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
 import CoinSelector from './components/CoinSelector'
+import { coins } from './components/CoinSelector/constants'
 import Sidebar from './components/Sidebar'
 import { getMetricLabel } from './helpers/getMetricLabel'
 import { styles } from './styles'
@@ -12,9 +13,16 @@ import { MetricsProps } from './types'
 export default function Metrics({ params }: MetricsProps) {
 	const { metricParam } = use(params)
 	const searchParams = useSearchParams()
+	const router = useRouter()
 	const cryptoParam = searchParams.get('crypto')
 	const [selectedMetric, set_selectedMetric] = useState(metricParam)
 	const [open, set_Open] = useState(true)
+
+	useEffect(() => {
+		const params = new URLSearchParams(searchParams.toString())
+		params.set('crypto', coins[0].id)
+		router.replace(`?${params.toString()}`, { scroll: false })
+	}, [])
 
 	return (
 		<>
