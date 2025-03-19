@@ -3,6 +3,7 @@
 import { Grid2, Typography } from '@mui/material'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { use, useEffect, useState } from 'react'
+import Chart from './components/Chart'
 import CoinSelector from './components/CoinSelector'
 import { coins } from './components/CoinSelector/constants'
 import Sidebar from './components/Sidebar'
@@ -28,7 +29,7 @@ export default function Metrics({ params }: MetricsProps) {
 		<>
 			<CoinSelector />
 			<Grid2 container spacing={2}>
-				<Grid2 size={open ? 2.25 : 'auto'} sx={styles.sidebar(open)}>
+				<Grid2 size={open ? 2.25 : 'auto'} sx={styles.sidebar()}>
 					<Sidebar
 						open={open}
 						set_Open={set_Open}
@@ -36,11 +37,12 @@ export default function Metrics({ params }: MetricsProps) {
 						selectedMetric={selectedMetric}
 					/>
 				</Grid2>
-				<Grid2 size={open ? 9.75 : 'auto'} sx={styles.content(open)}>
+				<Grid2 size={open ? 9.75 : 'auto'} sx={styles.content()}>
 					<Typography
 						sx={styles.typography.title}
 					>{`${cryptoParam} - ${getMetricLabel(selectedMetric)}`}</Typography>
 					<Typography sx={styles.typography.content}>.............test</Typography>
+					<Chart prices={[]} minMaxDayRange={[0, 1]} dayRange={[0, 1]} />
 				</Grid2>
 			</Grid2>
 		</>
