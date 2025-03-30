@@ -1,26 +1,47 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { colors } from '@/theme'
 import { Box } from '@mui/material'
-import { ChartsGrid, ResponsiveChartContainer } from '@mui/x-charts'
-import { BarPlot } from '@mui/x-charts/BarChart'
-import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis'
-import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis'
-import { LineHighlightPlot, LinePlot } from '@mui/x-charts/LineChart'
-import { useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { useUniqueWalletsHourlyQuery } from '@/app/generated/graphql'
+import { colors } from '@/theme'
+import {
+	BarPlot,
+	ChartsGrid,
+	ChartsXAxis,
+	ChartsYAxis,
+	LineHighlightPlot,
+	LinePlot,
+	ResponsiveChartContainer,
+} from '@mui/x-charts'
 import ValueHighlight from '../ValueHighlight'
 import { chartContainerStyles, chartMargin, containerStyles } from './styles'
 import { NetFlowProps } from './types'
-import { createSeries, getDefaultData, valueFormatter } from './utils'
+import { createSeries, getData, getDefaultData, valueFormatter } from './utils'
 
 export default function NetFlowChart(props: NetFlowProps) {
 	const svgRef = useRef<SVGSVGElement>(null)
 	const [data, setData] = useState(getDefaultData())
-	const series = createSeries(data)
+
+	// Lấy kết quả query và tách thành 2 biến riêng biệt
+	const queryResult = useUniqueWalletsHourlyQuery()
+	const uniqueWalletsHourly = useMemo(
+		() => queryResult.data?.uniqueWalletsHourly?.slice(0, 1000) || [],
+		[queryResult.data?.uniqueWalletsHourly],
+	)
+
+	// Thay thế state series và useEffect bằng useMemo
+	const series = useMemo(() => createSeries(data), [data])
+
+	useEffect(() => {
+		if (uniqueWalletsHourly && uniqueWalletsHourly.length > 0) {
+			setData(getData(uniqueWalletsHourly))
+		}
+	}, [uniqueWalletsHourly])
 
 	return (
+		// <Box>test</Box>
+
 		<Box sx={containerStyles}>
-			<Box display="inline-flex" width="100%" height="100%"></Box>
 			<ResponsiveChartContainer
 				ref={svgRef}
 				series={series}
@@ -57,7 +78,7 @@ export default function NetFlowChart(props: NetFlowProps) {
 					leftAxisId="flow"
 					rightAxisId="price"
 					bottomAxisId="dates"
-					sliderRight_Miliseconds={props.dayRange[1]}
+					// sliderRight_Miliseconds={props.dayRange[1]}
 					tooltip={{
 						price: { color: colors.primary[250], data: data.y_prices },
 						flow: {

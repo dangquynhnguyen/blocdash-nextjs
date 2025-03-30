@@ -2,9 +2,9 @@
 import { RefObject } from 'react'
 
 export type NetFlowProps = {
-	prices: number[]
-	minMaxDayRange: [number, number]
-	dayRange: [number, number]
+	// data: ChartData
+	// minMaxDayRange: [number, number]
+	// dayRange: [number, number]
 	daySliderOnChange?: (...args: any[]) => void
 }
 

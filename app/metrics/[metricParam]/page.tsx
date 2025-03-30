@@ -42,7 +42,11 @@ export default function Metrics({ params }: MetricsProps) {
 						sx={styles.typography.title}
 					>{`${cryptoParam} - ${getMetricLabel(selectedMetric)}`}</Typography>
 					<Typography sx={styles.typography.content}>.............test</Typography>
-					<Chart prices={[]} minMaxDayRange={[0, 1]} dayRange={[0, 1]} />
+					<Chart
+					// minMaxDayRange={[0, 1]}
+					// dayRange={[0, 1]}
+					// data={getDefaultData()}
+					/>
 				</Grid2>
 			</Grid2>
 		</>
