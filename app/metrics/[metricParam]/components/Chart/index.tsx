@@ -88,6 +88,7 @@ export default function NetFlowChart(props: NetFlowProps) {
 							},
 						},
 					}}
+					sliderRight_Miliseconds={0}
 				/>
 				<LineHighlightPlot />
 			</ResponsiveChartContainer>
